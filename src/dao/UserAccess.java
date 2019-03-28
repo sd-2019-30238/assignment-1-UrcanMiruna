@@ -131,20 +131,31 @@ public class UserAccess {
         }
         return user;
     }
+    public UserAccount userbyUsername(String id){
+        UserAccount user = null;
+        UserAccess userAccess = new UserAccess();
+        List<UserAccount> list = new ArrayList<>();
+        userAccess.selectUser(list);
+        for(UserAccount userAccount:list){
+            if(userAccount.getUsername().equals(id)){
+                user=userAccount;
+            }
+        }
+        return user;
+    }
+
 
 
     public static void main(String[] args){
        UserAccess user = new UserAccess();
        List<UserAccount> list = new ArrayList<>();
-       //user.selectUser(list);
-       //user.insertUser(new UserAccount(2, "ANca", 47, "Cj 45", "ancacj", "7894"));
+       user.selectUser(list);
+      // user.insertUser(new UserAccount("Maria", 47, "Cluj", "sorin@yahoo.com", "anca"));
         //user.updateUser(2, new UserAccount(2, "ANca", 47, "Cj 45", "JustAnca", "7894"));
         //user.deleteUser(2);
 
-        user.selectUser(list);
-        for(UserAccount us:list ){
-           System.out.println(us.toString());
-       }
+       user.selectUser(list);
+        System.out.println(user.userbyUsername("anca@yahoo.com").toString());
         //System.out.println(user.userbyId(2).getName());
 
     }

@@ -10,11 +10,9 @@ public class Product {
     private int amount;
     private Float price;
     private String type;
-    private static int increment;
+    private static int increment=1;
 
-    static {
-        increment = 1;
-    }
+
 
     public Product(String name, String description, int amount, Float price, String type) {
         this.setId();
@@ -99,7 +97,7 @@ public class Product {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
-        return getId() == product.getId() &&
+        return
                 getAmount() == product.getAmount() &&
                 Objects.equals(getName(), product.getName()) &&
                 Objects.equals(getDescription(), product.getDescription()) &&

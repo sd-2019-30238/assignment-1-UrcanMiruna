@@ -1,5 +1,6 @@
 package Controller;
 
+import com.sun.javafx.UnmodifiableArrayList;
 import dao.ProductAccess;
 import dao.StaffAccess;
 import dao.UserAccess;
@@ -9,6 +10,7 @@ import model.Product;
 import model.StaffAccount;
 import model.UserAccount;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -115,11 +117,21 @@ public class UserController {
         //System.out.println(acc.validateEmail("urcan.miruna@yahoo.com"));
         // System.out.println(acc.validatePAssword("ana"));
         Person person = new Person("iefvd", 56, "Oradea");
-        acc.createAccount(person, "vare@yahoo.com", "mirustefi");
+       // acc.createAccount(person, "tres@yahoo.com", "mirustefi");
        //acc.deleteAccount("carmen@haha.com", "edrfb");
        // acc.createAccount(person, 2,"carmen@haha.com", "edrfb");
        // System.out.println(acc.validateLogin("miruna@google.com", "haha"));
         //System.out.println(acc.verifyStaff("ana@yahoo.com"));
+
+        UserAccess userAccess = new UserAccess();
+        List<UserAccount> list = new ArrayList<>();
+        userAccess.selectUser(list);
+
+        //acc.createAccount(person, "florina@yahoo.com", "sorun");
+        for(UserAccount userAccount:list){
+            System.out.println(userAccount.toString());
+        }
+        System.out.println(list.get(0).equals(list.get(0)));
 
     }
 

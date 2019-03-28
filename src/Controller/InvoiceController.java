@@ -23,6 +23,7 @@ public class InvoiceController {
         orderAccess.selectOrders(orders);
         List<Order> list = orders.stream().filter(order -> order.getUser().equals(invoicePrice.getUser())).filter(order -> order.getState().equals("delivering")).collect(Collectors.toList());
         for(Order ord:list){
+            System.out.println(ord.toString());
             price+=ord.getProduct().getPrice()*ord.getAmountOrdered();
         }
         invoicePrice.setTotalPrice(price);
@@ -64,10 +65,10 @@ public class InvoiceController {
         UserAccess userAccess=new UserAccess();
         List<UserAccount> userAccounts = new ArrayList<>();
         userAccess.selectUser(userAccounts);
+        UserAccount user = userAccess.userbyUsername("mari@yahoo.com");
 
-        for(UserAccount user:userAccounts){
-            System.out.println(invoiceController.setInvoicePrice(new Invoice(user))+" ");
-
-        }
+       Invoice invoice = new Invoice(user);
+       invoiceController.setInvoicePrice(invoice);
+       System.out.println(invoice.getTotalPrice()+"");
     }
 }

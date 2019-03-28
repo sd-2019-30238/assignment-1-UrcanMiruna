@@ -1,12 +1,13 @@
 package present;
 
+import Controller.CartController;
 import Controller.OrderController;
 import Controller.ProductController;
 import Controller.UserController;
 import com.sun.org.apache.xpath.internal.operations.Or;
-import model.Invoice;
-import model.Order;
-import model.Product;
+import dao.OrderAccess;
+import dao.StaffAccess;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserForm extends JFrame {
@@ -25,6 +27,12 @@ public class UserForm extends JFrame {
     private JButton invoice;
     private JButton addToCart;
     private JButton logOut;
+
+    private JTable carttable;
+    private JLabel cartLabel;
+    private JScrollPane cartScroll;
+
+    private JButton order;
 
 
 
@@ -74,7 +82,35 @@ public class UserForm extends JFrame {
         scrollPane.setBounds(300, 50, 500, 100);
         //add(scrollPane);
         frame.add(scrollPane);
+        DefaultTableModel model1 = new DefaultTableModel(new String[]{"Name", "Description", "Amount","Price", "Type"}, 0);
 
+
+        carttable = new JTable(model1){
+            public boolean isCellEditable(int data, int columns){
+                if(columns==2){
+                    return true;
+                }
+                return false;
+            }
+
+            public Component prepareRenderer(TableCellRenderer r, int data, int columns){
+                Component c = super.prepareRenderer(r, data, columns);
+                if(data%2==0){
+                    c.setBackground(Color.WHITE);
+                }else {
+                    c.setBackground(Color.LIGHT_GRAY);
+                }
+                if(isCellSelected(data, columns)){
+                    c.setBackground(Color.GRAY);
+                }
+                return c;
+
+            }
+        };
+
+
+        cartScroll = new JScrollPane(carttable);
+        cartScroll.setBounds(300, 250, 500, 100);
         history.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +118,7 @@ public class UserForm extends JFrame {
 
             }
         });
+        frame.add(cartScroll);
         frame.add(history);
         //this.pack();
 
@@ -96,6 +133,49 @@ public class UserForm extends JFrame {
         });
         frame.add(invoice);
 
+        UserController userController = new UserController();
+        UserAccount user = userController.getUser(username);
+        Cart cart = new Cart(user);
+
+        addToCart = new JButton("Add to cart");
+        cartLabel = new JLabel("Cart");
+        cartLabel.setBounds(300, 200, 100, 30);
+
+        addToCart.setBounds(50, 200, 150, 30);
+        addToCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int p = products.getSelectedRow();
+                ProductController pc = new ProductController();
+                List<Product>list = pc.viewDeals();
+                cart.addProduct(list.get(p));
+                Product pr = list.get(p);
+                //for(Product pr : cart.getProductList()){
+                    model1.addRow(new Object[]{pr.getName(), pr.getDescription(), pr.getAmount(), pr.getPrice(), pr.getType()});
+
+                //}
+
+            }
+        });
+        frame.add(addToCart);
+        frame.add(cartLabel);
+
+        order = new JButton("Order");
+        order.setBounds(50,250,150,30);
+        order.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderController orderController = new OrderController();
+                for(Product p:cart.getProductList()){
+                    System.out.println(p.toString());
+                    orderController.insertOrder( p,user, p.getAmount());
+                }
+                for(int p=0; p<carttable.getRowCount(); p++)
+                    model1.removeRow(p);
+            }
+        });
+        frame.add(order);
     }
+
 
 }

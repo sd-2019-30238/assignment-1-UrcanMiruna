@@ -59,7 +59,7 @@ public class UserAccount extends Person{
         if (!(o instanceof UserAccount)) return false;
         if (!super.equals(o)) return false;
         UserAccount that = (UserAccount) o;
-        return getId() == that.getId() &&
+        return
                 Objects.equals(getUsername(), that.getUsername()) &&
                 Objects.equals(getPassword(), that.getPassword());
     }

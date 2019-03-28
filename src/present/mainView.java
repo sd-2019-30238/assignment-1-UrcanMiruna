@@ -29,6 +29,7 @@ public class mainView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 CreateAccount createAccount=new CreateAccount();
                 createAccount.setVisible(true);
+
             }
         });
     }

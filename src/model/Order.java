@@ -5,24 +5,23 @@ import java.util.Objects;
 public class Order {
     private int id;
     private UserAccount user;  /// same for people who orderred more products.
-    private StaffAccount staff;
     private Product product;
     private String state;
     private int amountOrdered;
     private static int incremnet=1;
 
-    public Order(UserAccount user, StaffAccount staff, Product product, String state, int amountOrdered) {
+    public Order(UserAccount user,  Product product, String state, int amountOrdered) {
         this.setId();
         this.user = user;
-        this.staff = staff;
+
         this.product = product;
         this.state = state;
         this.amountOrdered = amountOrdered;
     }
-    public Order(int id, UserAccount user, StaffAccount staff, Product product, String state, int amountOrdered) {
+    public Order(int id, UserAccount user,Product product, String state, int amountOrdered) {
         this.id=id;
         this.user = user;
-        this.staff = staff;
+
         this.product = product;
         this.state = state;
         this.amountOrdered = amountOrdered;
@@ -44,13 +43,7 @@ public class Order {
         this.user = user;
     }
 
-    public StaffAccount getStaff() {
-        return staff;
-    }
 
-    public void setStaff(StaffAccount staff) {
-        this.staff = staff;
-    }
 
     public Product getProduct() {
         return product;
@@ -81,7 +74,6 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", user=" + user +
-                ", staff=" + staff +
                 ", product=" + product +
                 ", state='" + state + '\'' +
                 ", amountOrdered=" +  amountOrdered +
@@ -93,9 +85,8 @@ public class Order {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return getId() == order.getId() &&
+        return
                 Objects.equals(getUser(), order.getUser()) &&
-                Objects.equals(getStaff(), order.getStaff()) &&
                 Objects.equals(getProduct(), order.getProduct()) &&
                 Objects.equals(getState(), order.getState()) &&
                 Objects.equals(getAmountOrdered(), order.getAmountOrdered());
@@ -103,6 +94,6 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUser(), getStaff(), getProduct(), getState(), getAmountOrdered());
+        return Objects.hash(getId(), getUser(), getProduct(), getState(), getAmountOrdered());
     }
 }

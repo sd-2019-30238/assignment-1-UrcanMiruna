@@ -61,7 +61,7 @@ public class StaffAccount extends Person{
         if (!(o instanceof StaffAccount)) return false;
         if (!super.equals(o)) return false;
         StaffAccount that = (StaffAccount) o;
-        return getId() == that.getId() &&
+        return
                 Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getUsername(), that.getUsername()) &&
                 Objects.equals(getPassword(), that.getPassword());

@@ -79,11 +79,11 @@ public class ProductController {
         for(Product p:types){
             System.out.println(p.toString());
         }*/
-        Product p1 = new Product("table", "modern", 4, 4.5f, "kitchen");
+        Product p1 = new Product("bed", "modern", 4, 4.5f, "bedroom");
         //pc.addProduct(p1);
-        pa.insertProduct(p1);
+        //pa.insertProduct(p1);
        // ProductAccess ppa = new ProductAccess();
-       // ppa.selectProduct(name);
+       pa.selectProduct(name);
         for(Product p:name){
             System.out.println(p.toString());
         }

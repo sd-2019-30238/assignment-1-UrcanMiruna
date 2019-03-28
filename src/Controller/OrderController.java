@@ -2,6 +2,8 @@ package Controller;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 import dao.OrderAccess;
+import dao.ProductAccess;
+import dao.StaffAccess;
 import dao.UserAccess;
 import model.Order;
 import model.Product;
@@ -24,9 +26,9 @@ public class OrderController {
             return list;
         }
 
-        public void insertOrder(Product product, UserAccount userAccount, StaffAccount staffAccount, int amountOrdered){
+        public void insertOrder(Product product, UserAccount userAccount,  int amountOrdered){
             OrderAccess orderAccess = new OrderAccess();
-            orderAccess.insertOrder(new Order(userAccount, staffAccount, product, "delivering", amountOrdered));
+            orderAccess.insertOrder(new Order(userAccount,product, "delivering", amountOrdered));
         }
 
         public static void main(String[] args){
@@ -35,10 +37,25 @@ public class OrderController {
             List<UserAccount> userAccounts = new ArrayList<>();
             userAccess.selectUser(userAccounts);
 
-            List<Order> list = orderController.historyOrders(userAccounts.get(0));
-            for(Order ord:list){
-               System.out.println(ord.toString());
+            ProductAccess productAccess = new ProductAccess();
+            List<Product> list = new ArrayList<>();
+            productAccess.selectProduct(list);
+
+            StaffAccess staffAccess = new StaffAccess();
+            List<StaffAccount> list1 = new ArrayList<>();
+            staffAccess.selectStaff(list1);
+            OrderAccess orderAccess = new OrderAccess();
+            List<Order> orders = new ArrayList<>();
+            //orderAccess.insertOrder(new Order(userAccounts.get(0),list.get(2), "paid", 2));
+            orderAccess.selectOrders(orders);
+            for(Order order:orders){
+                System.out.println(order.getUser().toString());
             }
+
+            //List<Order> list = orderController.historyOrders(userAccounts.get(1));
+          //  for(Order ord:list){
+           //    System.out.println(ord.toString());
+           // }
 
            // orderController.insertOrder(new Product("chair", ""));
 

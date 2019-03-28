@@ -31,7 +31,7 @@ public class ProductAccess {
             ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next())
             {
-                list.add(new Product(rs.getString("name"), rs.getString("description"),
+                list.add(new Product(rs.getInt("id"),rs.getString("name"), rs.getString("description"),
                         rs.getInt("amount"), rs.getFloat("price"), rs.getString("type")));
             }
 
@@ -140,7 +140,7 @@ public class ProductAccess {
             System.out.println(p.toString());
         }
 
-       pa.insertProduct(new Product("6bed", "wood", 3,4.0f,"bedroom"));
+       pa.insertProduct(new Product("desk", "wood", 3,15.0f,"office"));
         for(Product p:list){
             System.out.println(p.toString());
         }

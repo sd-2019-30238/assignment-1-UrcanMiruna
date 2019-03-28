@@ -28,6 +28,7 @@ public class InvoiceForm extends JFrame {
         for(Product p : invoice.getProductList()){
             textArea1.append(p.toString()+"\n");
         }
+        inv.setInvoicePrice(invoice);
         textArea1.append("Total price: "+invoice.getTotalPrice()+"");
 
     }
