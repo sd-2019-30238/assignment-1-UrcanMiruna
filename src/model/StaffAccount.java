@@ -49,10 +49,10 @@ public class StaffAccount extends Person{
     @Override
     public String toString() {
 
-        return "StaffAccount{" +
-                "id=" + id +
-                ", username='" + username + '\'' + " name = " +this.getName()+" age = "+this.getAge()+
-                '}';
+        return "Staff: " +
+                "id: " + id +
+                "\n Username: " + username + "\nName: " + this.getName() +"\nAge:  " + this.getAge()+"\nAddress: "+this.getAddress();
+
     }
 
     @Override
@@ -71,4 +71,5 @@ public class StaffAccount extends Person{
     public int hashCode() {
         return Objects.hash(super.hashCode(), getId(), getUsername(), getPassword());
     }
+
 }

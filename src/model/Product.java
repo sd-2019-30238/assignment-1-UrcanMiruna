@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.table.TableColumn;
 import java.util.Objects;
 
 public class Product {
@@ -9,9 +10,13 @@ public class Product {
     private int amount;
     private Float price;
     private String type;
-    private static int incrId=1;
+    private static int increment;
 
-    public Product( String name, String description, int amount, Float price, String type) {
+    static {
+        increment = 1;
+    }
+
+    public Product(String name, String description, int amount, Float price, String type) {
         this.setId();
         this.name = name;
         this.description = description;
@@ -20,12 +25,22 @@ public class Product {
         this.type = type;
     }
 
+    public Product(int id, String name, String description, int amount, Float price, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.amount = amount;
+        this.price = price;
+        this.type = type;
+    }
+
+    public Product(){};
     public int getId() {
         return id;
     }
 
     public void setId() {
-        this.id=incrId++;
+        this.id=increment++;
     }
 
     public String getName() {
@@ -70,14 +85,13 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", type='" + type + '\'' +
-                '}';
+        return "Product: " +
+                "\nid: " + id +
+                "  name" + name +
+                "  description='" + description +
+                "  amount=" + amount +
+                "  price "  + price +
+                "  type: " + type;
     }
 
     @Override

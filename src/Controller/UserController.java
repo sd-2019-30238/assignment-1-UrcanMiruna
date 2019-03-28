@@ -41,6 +41,20 @@ public class UserController {
         }
         return false;
     }
+    public UserAccount getUser(String user){
+        UserAccess userAccess = new UserAccess();
+        List<UserAccount> userList = new ArrayList<>();
+        userAccess.selectUser(userList);
+        UserAccount found = null;
+        for(UserAccount us: userList){
+            if(us.getUsername().equals(user)){
+                found = us;
+            }
+        }
+        return found;
+
+    }
+
 /*
     public boolean verifyUser(String username){
         UserAccess userAccess = new UserAccess();
@@ -65,13 +79,13 @@ public class UserController {
         return true;
     }
 
-    public void createAccount(Person person, int id, String username, String password) {
+    public void createAccount(Person person, String username, String password) {
         if (validateEmail(username) && validatePAssword(password)) {
             if ( verifyStaff(username) ){
                 UserAccess userAccess = new UserAccess();
                 List<UserAccount> userAccounts = new ArrayList<>();
                 userAccess.selectUser(userAccounts);
-                userAccess.insertUser(new UserAccount( person.getName(), person.getAge(), person.getAddress(), username, password));
+                userAccess.insertUser(new UserAccount(person.getName(), person.getAge(), person.getAddress(), username, password));
             }else{
                System.out.println("Username existent");
             }
@@ -100,12 +114,13 @@ public class UserController {
         UserController acc = new UserController();
         //System.out.println(acc.validateEmail("urcan.miruna@yahoo.com"));
         // System.out.println(acc.validatePAssword("ana"));
-        Person person = new Person("ana", 56, "Oradea");
-        //acc.createAccount(person, 1,"ada@yahoo.com", "mirustefi");
-       acc.deleteAccount("carmen@haha.com", "edrfb");
+        Person person = new Person("iefvd", 56, "Oradea");
+        acc.createAccount(person, "vare@yahoo.com", "mirustefi");
+       //acc.deleteAccount("carmen@haha.com", "edrfb");
        // acc.createAccount(person, 2,"carmen@haha.com", "edrfb");
        // System.out.println(acc.validateLogin("miruna@google.com", "haha"));
         //System.out.println(acc.verifyStaff("ana@yahoo.com"));
+
     }
 
 }

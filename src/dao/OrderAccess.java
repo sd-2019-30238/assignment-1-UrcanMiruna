@@ -28,7 +28,7 @@ public class OrderAccess {
                 "       idStaff,\n" +
                 "       idProduct,\n" +
                 "       state,\n" +
-                "       totalprice\n" +
+                "       amountOrdered\n" +
                 "  FROM [Order]\n";
         try(Connection conn = this.connect();
             Statement stmt = conn.createStatement();
@@ -41,7 +41,7 @@ public class OrderAccess {
                 ProductAccess pr = new ProductAccess();
                 orders.add(new Order(rs.getInt("id"), usa.userbyId(rs.getInt("idUser")),
                         sta.StaffById(rs.getInt("idStaff")), pr.productById(rs.getInt("idProduct")),
-                        rs.getString("state"), rs.getFloat("totalprice")));
+                        rs.getString("state"), rs.getInt("amountOrdered")));
 
             }
 
@@ -56,16 +56,16 @@ public class OrderAccess {
                 "                        idStaff,\n" +
                 "                        idProduct,\n" +
                 "                        state,\n" +
-                "                        totalprice\n" +
+                "                        amountOrdered\n" +
                 "                    )\n" +
                 "                    VALUES (\n" +
-                "                        'id',\n" +
-                "                        'idUser',\n" +
-                "                        'idStaff',\n" +
-                "                        'idProduct',\n" +
-                "                        'state',\n" +
-                "                        'totalprice'\n" +
-                "                    );\n0";
+                "                        ?,\n" +
+                "                        ?,\n" +
+                "                        ?,\n" +
+                "                        ?,\n" +
+                "                        ?,\n" +
+                "                        ?\n" +
+                "                    );\n";
         try(Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, order.getId());
@@ -73,7 +73,7 @@ public class OrderAccess {
             pstmt.setInt(3, order.getStaff().getId());
             pstmt.setInt(4, order.getProduct().getId());
             pstmt.setString(5, order.getState());
-            pstmt.setFloat(6, order.getTotalPrice());
+            pstmt.setFloat(6, order.getAmountOrdered());
         }catch (SQLException d){
             System.out.println(d.getMessage());
         }
@@ -86,7 +86,7 @@ public class OrderAccess {
                 "       idStaff = ?,\n" +
                 "       idProduct = ?,\n" +
                 "       state = ?,\n" +
-                "       totalprice = ?\n" +
+                "       amountOrdered = ?\n" +
                 " WHERE id = ?";
         try(Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -95,7 +95,7 @@ public class OrderAccess {
             pstmt.setInt(3,order.getStaff().getId());
             pstmt.setInt(4,order.getProduct().getId());
             pstmt.setString(5, order.getState());
-            pstmt.setFloat(6,order.getTotalPrice());
+            pstmt.setFloat(6,order.getAmountOrdered());
             pstmt.setInt(7,id);
         }catch(SQLException d){
             System.out.println(d.getMessage());
@@ -109,7 +109,7 @@ public class OrderAccess {
                 "       idStaff = ? AND \n" +
                 "       idProduct = ? AND \n" +
                 "       state = ? AND \n" +
-                "       totalprice = ?;\n";
+                "       amountOrdered = ?;\n";
         try(Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setString(1,newState);
@@ -118,7 +118,7 @@ public class OrderAccess {
             pstmt.setInt(4, order.getStaff().getId());
             pstmt.setInt(5, order.getProduct().getId());
             pstmt.setString(6, order.getState());
-            pstmt.setFloat(7, order.getTotalPrice());
+            pstmt.setFloat(7, order.getAmountOrdered());
         }catch(SQLException d){
             System.out.println(d.getMessage());
         }

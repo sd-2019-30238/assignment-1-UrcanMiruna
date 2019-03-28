@@ -133,14 +133,18 @@ public class ProductAccess {
     public static void main(String[] args){
         ProductAccess pa = new ProductAccess();
         List<Product> list = new ArrayList<>();
-        //pa.insertProduct(new Product(2,"bed", "bedroom", 1,10.0f,"sleep"));
        // pa.updateProduct(2, new Product(2,"bed", "queen size", 1,10.0f,"sleep"));
         //pa.deleteProduct(1);
         pa.selectProduct(list);
         for(Product p:list){
             System.out.println(p.toString());
         }
-        System.out.println(pa.productById(2).getName());
+
+       pa.insertProduct(new Product("6bed", "wood", 3,4.0f,"bedroom"));
+        for(Product p:list){
+            System.out.println(p.toString());
+        }
+        //System.out.println(pa.productById(2).getName());
     }
 
 }

@@ -1,12 +1,12 @@
 package Controller;
 
+import FactoryPattern.Discount;
+import FactoryPattern.DiscountFactory;
 import dao.OrderAccess;
+import dao.ProductAccess;
 import dao.StaffAccess;
 import dao.UserAccess;
-import model.Order;
-import model.Person;
-import model.StaffAccount;
-import model.UserAccount;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +72,7 @@ public class StaffController {
         }
         return true;
     }
-    public void createAccount(Person person, int id, String username, String password, String cat) {
+    public void createAccount(Person person,  String username, String password, String cat) {
         if (validateEmail(username) && validatePAssword(password)) {
             if(cat.equals("staff") && verifyUser(username)){
                 StaffAccess staffAccess = new StaffAccess();
@@ -84,7 +84,7 @@ public class StaffController {
             else System.out.println("Username existent");
         }
     }
-    public void seStateOrder(Order order, String state){
+    public void setStateOrder(Order order, String state){
         OrderAccess orderAccess=new OrderAccess();
         List<Order> orders = new ArrayList<>();
         orderAccess.selectOrders(orders);
@@ -96,4 +96,27 @@ public class StaffController {
         }
     }
 
+    public void setDiscount(String type){
+        DiscountFactory discountFactory = new DiscountFactory();
+        Discount discount = discountFactory.getDiscount(type);
+        discount.applyDiscount();
+    }
+
+
+    public static void main(String[] args){
+
+        ProductAccess productAccess= new ProductAccess();
+        List<Product> list = new ArrayList<>();
+        productAccess.selectProduct(list);
+        for(Product ord:list){
+           System.out.println(ord.getType()+" "+ ord.getPrice());
+        }
+        StaffController staffController=new StaffController();
+        staffController.setDiscount("office");
+        staffController.createAccount(new Person("ana", 45, "here"), "tata@gmail.com", "miruna", "staff");
+        for(Product ord:list){
+            System.out.println(ord.getType()+" "+ ord.getPrice());
+        }
+
+    }
 }

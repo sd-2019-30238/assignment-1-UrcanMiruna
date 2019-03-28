@@ -7,9 +7,7 @@ public class UserAccount extends Person{
     private String username;
     private String password;
     private static int increment=1;
-    public UserAccount(){
 
-    };
     public UserAccount( String name, int age, String address, String username, String password) {
         super( name, age, address);
         this.setId();
@@ -22,6 +20,7 @@ public class UserAccount extends Person{
         this.username = username;
         this.password = password;
     }
+
 
     public int getId() {
         return id;
@@ -49,10 +48,9 @@ public class UserAccount extends Person{
 
     @Override
     public String toString() {
-        return "UserAccount{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                '}' + this.getName() +" " + this.getAge()+this.getAddress();
+        return "User: \n" +
+                "id: " + id +
+                "\nUsername: " + username + "\nName: " + this.getName() +"\nAge:  " + this.getAge()+"\nAddress: "+this.getAddress();
     }
 
     @Override

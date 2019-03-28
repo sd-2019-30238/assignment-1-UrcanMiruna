@@ -8,24 +8,24 @@ public class Order {
     private StaffAccount staff;
     private Product product;
     private String state;
-    private Float totalPrice;
+    private int amountOrdered;
     private static int incremnet=1;
 
-    public Order(UserAccount user, StaffAccount staff, Product product, String state, Float totalPrice) {
+    public Order(UserAccount user, StaffAccount staff, Product product, String state, int amountOrdered) {
         this.setId();
         this.user = user;
         this.staff = staff;
         this.product = product;
         this.state = state;
-        this.totalPrice = totalPrice;
+        this.amountOrdered = amountOrdered;
     }
-    public Order(int id, UserAccount user, StaffAccount staff, Product product, String state, Float totalPrice) {
+    public Order(int id, UserAccount user, StaffAccount staff, Product product, String state, int amountOrdered) {
         this.id=id;
         this.user = user;
         this.staff = staff;
         this.product = product;
         this.state = state;
-        this.totalPrice = totalPrice;
+        this.amountOrdered = amountOrdered;
     }
 
     public int getId() {
@@ -68,12 +68,12 @@ public class Order {
         this.state = state;
     }
 
-    public Float getTotalPrice() {
-        return totalPrice;
+    public int getAmountOrdered() {
+        return amountOrdered;
     }
 
-    public void setTotalPrice(Float totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setAmountOrdered(int amountOrdered) {
+        this.amountOrdered = amountOrdered;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class Order {
                 ", staff=" + staff +
                 ", product=" + product +
                 ", state='" + state + '\'' +
-                ", totalPrice=" + totalPrice +
+                ", amountOrdered=" +  amountOrdered +
                 '}';
     }
 
@@ -98,11 +98,11 @@ public class Order {
                 Objects.equals(getStaff(), order.getStaff()) &&
                 Objects.equals(getProduct(), order.getProduct()) &&
                 Objects.equals(getState(), order.getState()) &&
-                Objects.equals(getTotalPrice(), order.getTotalPrice());
+                Objects.equals(getAmountOrdered(), order.getAmountOrdered());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUser(), getStaff(), getProduct(), getState(), getTotalPrice());
+        return Objects.hash(getId(), getUser(), getStaff(), getProduct(), getState(), getAmountOrdered());
     }
 }

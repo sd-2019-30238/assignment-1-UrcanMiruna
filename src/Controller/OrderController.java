@@ -4,6 +4,8 @@ import com.sun.org.apache.xpath.internal.operations.Or;
 import dao.OrderAccess;
 import dao.UserAccess;
 import model.Order;
+import model.Product;
+import model.StaffAccount;
 import model.UserAccount;
 
 import javax.management.OperationsException;
@@ -22,16 +24,10 @@ public class OrderController {
             return list;
         }
 
-        public List<Order> invoice(UserAccount user){
+        public void insertOrder(Product product, UserAccount userAccount, StaffAccount staffAccount, int amountOrdered){
             OrderAccess orderAccess = new OrderAccess();
-            List<Order> orders = new ArrayList<>();
-            orderAccess.selectOrders(orders);
-            //System.out.println("///////////////////////////////////////////////////////////////");
-            List<Order> list =orders.stream().filter(order -> order.getUser().equals(user)).filter(order -> order.getState().equals("delivering")).collect(Collectors.toList());
-            return list;
+            orderAccess.insertOrder(new Order(userAccount, staffAccount, product, "delivering", amountOrdered));
         }
-
-
 
         public static void main(String[] args){
             OrderController orderController = new OrderController();
@@ -43,11 +39,9 @@ public class OrderController {
             for(Order ord:list){
                System.out.println(ord.toString());
             }
-            System.out.println("/////////////////");
-            List<Order> invoices = orderController.invoice(userAccounts.get(0));
-            for(Order ord:invoices){
-                System.out.println(ord.toString());
-            }
+
+           // orderController.insertOrder(new Product("chair", ""));
+
         }
 
 }
