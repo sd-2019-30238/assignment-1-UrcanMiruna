@@ -1,6 +1,7 @@
 package Controller;
 
 import model.Cart;
+import model.Product;
 
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class CartController {
         }
         return cart;
     }
+    public void deleteCart(Cart c){
+        c = null;
+    }
 
     public List<Cart> getCarts() {
         return carts;
@@ -34,4 +38,5 @@ public class CartController {
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
+
 }

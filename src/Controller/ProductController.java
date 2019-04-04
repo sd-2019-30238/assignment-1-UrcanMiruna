@@ -43,10 +43,13 @@ public class ProductController {
     }
 
     public void addProduct(Product product){
+        int k=0;
         ProductAccess productAccess= new ProductAccess();
-        List<Product> list = new ArrayList<>();
-        productAccess.selectProduct(list);
-        productAccess.insertProduct(product);
+        List<Product> products = new ArrayList<>();
+        productAccess.selectProduct(products);
+        int nr = products.size();
+        productAccess.insertProduct(new Product(nr+1, product.getName(), product.getDescription(), product.getAmount(), product.getPrice(), product.getType()));
+
     }
 
     public void deleteProduct(Product p){
@@ -56,6 +59,13 @@ public class ProductController {
         productAccess.deleteProduct(p.getId());
     }
 
+    public void updateProduct(Product p, int amount){
+        ProductAccess productAccess = new ProductAccess();
+        List<Product> productList = new ArrayList<>();
+        productAccess.selectProduct(productList);
+        Product pnou = new Product( p.getName(), p.getDescription(), p.getAmount()-amount, p.getPrice(), p.getType());
+        productAccess.updateProduct(p.getId(), pnou);
+    }
 
 
     public static void main(String[] args){
@@ -79,8 +89,8 @@ public class ProductController {
         for(Product p:types){
             System.out.println(p.toString());
         }*/
-        Product p1 = new Product("bed", "modern", 4, 4.5f, "bedroom");
-        //pc.addProduct(p1);
+        Product p1 = new Product("bed", "hahaha", 4, 30.5f, "bedroom");
+        pc.addProduct(p1);
         //pa.insertProduct(p1);
        // ProductAccess ppa = new ProductAccess();
        pa.selectProduct(name);

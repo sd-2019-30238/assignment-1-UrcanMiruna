@@ -18,9 +18,9 @@ public class InvoiceController {
 
     public float setInvoicePrice(Invoice invoicePrice){
         float price=0;
-        OrderAccess orderAccess = new OrderAccess();
+        OrderController orderController = new OrderController();
         List<Order> orders = new ArrayList<>();
-        orderAccess.selectOrders(orders);
+        orderController.getAllOrders(orders);
         List<Order> list = orders.stream().filter(order -> order.getUser().equals(invoicePrice.getUser())).filter(order -> order.getState().equals("delivering")).collect(Collectors.toList());
         for(Order ord:list){
             System.out.println(ord.toString());
@@ -51,9 +51,7 @@ public class InvoiceController {
         for(Order order:o){
             products.add(order.getProduct());
         }
-        for(Product p :products){
-            System.out.println(p.toString());
-        }
+
         Invoice invoice= new Invoice(user, products);
         this.setInvoicePrice(invoice);
         return invoice;
@@ -65,7 +63,7 @@ public class InvoiceController {
         UserAccess userAccess=new UserAccess();
         List<UserAccount> userAccounts = new ArrayList<>();
         userAccess.selectUser(userAccounts);
-        UserAccount user = userAccess.userbyUsername("mari@yahoo.com");
+        UserAccount user = userAccess.userbyUsername("alina@yahoo.com");
 
        Invoice invoice = new Invoice(user);
        invoiceController.setInvoicePrice(invoice);

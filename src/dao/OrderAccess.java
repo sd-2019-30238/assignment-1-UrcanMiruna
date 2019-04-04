@@ -43,7 +43,7 @@ public class OrderAccess {
                 UserAccess userAccess = new UserAccess();
                 UserAccount user = userAccess.userbyUsername(rs.getString("username"));
                 ProductAccess productAccess = new ProductAccess();
-                Product product= productAccess.productById(rs.getInt("idProduct"));
+                Product product= productAccess.productById(rs.getInt("id"));
                 orders.add(new Order(user, product, rs.getString("state"), rs.getInt("amountOrdered")));
             }
 
@@ -102,6 +102,33 @@ public class OrderAccess {
         }catch (SQLException d){
             System.out.println(d.getMessage());
         }
+    }
+
+    public void selectOrdersByUser(List<Order> orders, UserAccount user){
+        String sql = "SELECT id,\\n\" +\n" +
+                "                \"       username,\\n\" +\n" +
+                "                \"       idProduct,\\n\" +\n" +
+                "                \"       state,\\n\" +\n" +
+                "                \"       amountOrdered\\n\" +\n" +
+                "                \"  FROM Orders;\\n" +
+                "                   WHERE username = " +user.getUsername();
+        try(Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+
+            while(rs.next()){
+
+                UserAccess userAccess = new UserAccess();
+                UserAccount user1 = userAccess.userbyUsername(rs.getString("username"));
+                ProductAccess productAccess = new ProductAccess();
+                Product product= productAccess.productById(rs.getInt("idProduct"));
+                orders.add(new Order(user, product, rs.getString("state"), rs.getInt("amountOrdered")));
+            }
+
+        }catch (SQLException d){
+            System.out.println(d.getMessage());
+        }
+
     }
     public static void main(String args[]){
         OrderAccess orderAccess = new OrderAccess();

@@ -13,8 +13,8 @@ public class LogInVIew extends JFrame{
     private JPanel logIn;
     private JButton logInButton;
     private JButton back;
-    private static int loggedUser=0;
-    private static int loggedStaff =0;
+   // private static int loggedUser=0;
+    //private static int loggedStaff =0;
 
     public LogInVIew(){
 
@@ -32,8 +32,7 @@ public class LogInVIew extends JFrame{
                     pass+=a;
                 }
                 UserController userController = new UserController();
-                if(userController.validateLogin(username, pass) && loggedUser==0){
-                    loggedUser =1;
+                if(userController.validateLogin(username, pass) ){
                     new UserForm(username);
                     //JOptionPane.showMessageDialog(null, "User logged");
                     dispose();
@@ -41,8 +40,7 @@ public class LogInVIew extends JFrame{
                 }
                 else{
                     StaffController sc = new StaffController();
-                    if(sc.validateLogin(username, pass)&& loggedStaff==0){
-                        loggedStaff=1;
+                    if(sc.validateLogin(username, pass) ){
                          new StaffForm(username);
                         //JOptionPane.showMessageDialog(null, "Staff loggged");
                         dispose();

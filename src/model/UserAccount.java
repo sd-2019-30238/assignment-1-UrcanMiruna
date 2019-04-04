@@ -10,7 +10,7 @@ public class UserAccount extends Person{
 
     public UserAccount( String name, int age, String address, String username, String password) {
         super( name, age, address);
-        this.setId();
+        //this.setId();
         this.username = username;
         this.password = password;
     }
@@ -26,8 +26,8 @@ public class UserAccount extends Person{
         return id;
     }
 
-    public void setId() {
-        this.id = increment++;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {

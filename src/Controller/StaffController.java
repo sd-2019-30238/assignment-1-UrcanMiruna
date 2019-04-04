@@ -78,8 +78,9 @@ public class StaffController {
                 StaffAccess staffAccess = new StaffAccess();
                 List<StaffAccount> staffAccounts = new ArrayList<>();
                 staffAccess.selectStaff(staffAccounts);
+                int nr = staffAccounts.size() + 1;
+                staffAccess.insertStaff(new StaffAccount(nr, person.getName(), person.getAge(), person.getAddress(), username, password));
 
-                staffAccess.insertStaff(new StaffAccount(person.getName(), person.getAge(), person.getAddress(), username, password));
             }
             else System.out.println("Username existent");
         }
@@ -101,22 +102,25 @@ public class StaffController {
         Discount discount = discountFactory.getDiscount(type);
         discount.applyDiscount();
     }
+    public void addProduct(Product product){
+        ProductController productController = new ProductController();
+        productController.addProduct(product);
+    }
 
+    public void setAmountProduct(int amount, Product product){
+        ProductController productController=new ProductController();
+        productController.updateProduct(product, amount);
+    }
 
     public static void main(String[] args){
 
-        ProductAccess productAccess= new ProductAccess();
-        List<Product> list = new ArrayList<>();
-        productAccess.selectProduct(list);
-        for(Product ord:list){
-           System.out.println(ord.getType()+" "+ ord.getPrice());
-        }
-        StaffController staffController=new StaffController();
-        staffController.setDiscount("office");
-        staffController.createAccount(new Person("ana", 45, "here"), "tata@gmail.com", "miruna", "staff");
-        for(Product ord:list){
-            System.out.println(ord.getType()+" "+ ord.getPrice());
-        }
+       StaffController staff = new StaffController();
+       staff.createAccount(new Person("ALina", 33, "Cluj"), "alina@gm.com", "alina", "staff");
+       StaffAccess st = new StaffAccess();
+       List<StaffAccount> list = new ArrayList<>();
+       st.selectStaff(list);
 
+
+        System.out.println(list.get(1).getId());
     }
 }

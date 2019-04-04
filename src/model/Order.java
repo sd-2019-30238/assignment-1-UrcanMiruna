@@ -8,10 +8,10 @@ public class Order {
     private Product product;
     private String state;
     private int amountOrdered;
-    private static int incremnet=1;
+    private static int incremnet=0;
 
     public Order(UserAccount user,  Product product, String state, int amountOrdered) {
-        this.setId();
+        //this.setId();
         this.user = user;
 
         this.product = product;
@@ -21,7 +21,6 @@ public class Order {
     public Order(int id, UserAccount user,Product product, String state, int amountOrdered) {
         this.id=id;
         this.user = user;
-
         this.product = product;
         this.state = state;
         this.amountOrdered = amountOrdered;
@@ -31,8 +30,8 @@ public class Order {
         return id;
     }
 
-    public void setId() {
-        this.id = incremnet++;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public UserAccount getUser() {
@@ -87,13 +86,11 @@ public class Order {
         Order order = (Order) o;
         return
                 Objects.equals(getUser(), order.getUser()) &&
-                Objects.equals(getProduct(), order.getProduct()) &&
-                Objects.equals(getState(), order.getState()) &&
-                Objects.equals(getAmountOrdered(), order.getAmountOrdered());
+                Objects.equals(getProduct(), order.getProduct()) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUser(), getProduct(), getState(), getAmountOrdered());
+        return Objects.hash( getUser(), getProduct());
     }
 }

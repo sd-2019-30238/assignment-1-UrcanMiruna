@@ -10,12 +10,12 @@ public class Product {
     private int amount;
     private Float price;
     private String type;
-    private static int increment=1;
+    //private static int increment=1;
 
 
 
     public Product(String name, String description, int amount, Float price, String type) {
-        this.setId();
+        //this.setId();
         this.name = name;
         this.description = description;
         this.amount = amount;
@@ -37,8 +37,8 @@ public class Product {
         return id;
     }
 
-    public void setId() {
-        this.id=increment++;
+    public void setId(int id) {
+        this.id=id;
     }
 
     public String getName() {
@@ -84,7 +84,6 @@ public class Product {
     @Override
     public String toString() {
         return "Product: " +
-                "\nid: " + id +
                 "  name" + name +
                 "  description='" + description +
                 "  amount=" + amount +

@@ -31,7 +31,8 @@ public class ProductAccess {
             ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next())
             {
-                list.add(new Product(rs.getInt("id"),rs.getString("name"), rs.getString("description"),
+                list.add(new Product(rs.getInt("id"),
+                        rs.getString("name"), rs.getString("description"),
                         rs.getInt("amount"), rs.getFloat("price"), rs.getString("type")));
             }
 
@@ -119,7 +120,7 @@ public class ProductAccess {
             ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next())
             {
-                product =new Product(rs.getString("name"), rs.getString("description"),
+                product =new Product(rs.getInt("id"),rs.getString("name"), rs.getString("description"),
                         rs.getInt("amount"), rs.getFloat("price"), rs.getString("type"));
 
             }
@@ -129,6 +130,32 @@ public class ProductAccess {
         }
         return product;
     }
+    public Product productByName(String name){
+        String sql = "SELECT id,\n" +
+                "       name,\n" +
+                "       description,\n" +
+                "       amount,\n" +
+                "       price,\n" +
+                "       type\n" +
+                "  FROM Product\n" +
+                "  WHERE name = "+name;
+        Product product = null;
+        try(Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            while(rs.next())
+            {
+                product =new Product(rs.getInt("id"),rs.getString("name"), rs.getString("description"),
+                        rs.getInt("amount"), rs.getFloat("price"), rs.getString("type"));
+
+            }
+
+        }catch(SQLException d){
+            System.out.println(d.getMessage());
+        }
+        return product;
+    }
+
 
     public static void main(String[] args){
         ProductAccess pa = new ProductAccess();
@@ -140,11 +167,12 @@ public class ProductAccess {
             System.out.println(p.toString());
         }
 
-       pa.insertProduct(new Product("desk", "wood", 3,15.0f,"office"));
+       //pa.insertProduct(new Product("chair", "queen size", 1,230.0f,"office"));
         for(Product p:list){
             System.out.println(p.toString());
         }
         //System.out.println(pa.productById(2).getName());
+        System.out.println(pa.productByName("bed"));
     }
 
 }

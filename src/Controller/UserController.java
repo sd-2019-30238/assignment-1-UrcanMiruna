@@ -87,7 +87,12 @@ public class UserController {
                 UserAccess userAccess = new UserAccess();
                 List<UserAccount> userAccounts = new ArrayList<>();
                 userAccess.selectUser(userAccounts);
-                userAccess.insertUser(new UserAccount(person.getName(), person.getAge(), person.getAddress(), username, password));
+                if(userAccounts.isEmpty()){
+                    userAccess.insertUser(new UserAccount(1,person.getName(), person.getAge(), person.getAddress(), username, password));
+                }else{
+                    int nr = userAccounts.size()+1;
+                    userAccess.insertUser(new UserAccount(nr,person.getName(), person.getAge(), person.getAddress(), username, password));
+                }
             }else{
                System.out.println("Username existent");
             }
@@ -110,6 +115,7 @@ public class UserController {
             System.out.println("Wrong username or password ");
         }
     }
+
 
 
     public static void main(String[] args){
