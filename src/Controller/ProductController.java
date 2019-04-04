@@ -67,6 +67,11 @@ public class ProductController {
         productAccess.updateProduct(p.getId(), pnou);
     }
 
+    public void updateAll(Product p1,Product p2){
+        ProductAccess productAccess = new ProductAccess();
+        productAccess.updateProduct(p1.getId(), p2);
+
+    }
 
     public static void main(String[] args){
         ProductAccess pa = new ProductAccess();

@@ -24,6 +24,7 @@ public class OrderHistory extends JFrame {
     private JLabel info1;
     private JLabel info2;
     private JLabel info3;
+    private JButton back;
 
 
     public OrderHistory(String username){
@@ -95,8 +96,18 @@ public class OrderHistory extends JFrame {
         frame.add(info3);
         //frame.add(back);
         //this.pack();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        back = new JButton("Back");
+        back.setBounds(50,500,150,30);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LogInVIew log =new LogInVIew();
+                log.setVisible(true);
+                frame.dispose();
 
+            }
+        });
+        frame.add(back);
     }
 
 }

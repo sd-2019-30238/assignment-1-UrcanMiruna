@@ -21,6 +21,8 @@ public class BedroomDiscount implements Discount {
         for(Product product:typeProducts){
             float pr = product.getPrice()-(discount/100)*product.getPrice();
             product.setPrice(pr);
+            productAccess.updateProduct(product.getId(), product);
+
         }
         for(Product product:products){
             System.out.println(product.toString());

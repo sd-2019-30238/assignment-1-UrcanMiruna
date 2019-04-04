@@ -45,8 +45,10 @@ public class UserForm extends JFrame {
 
     private JButton back;
 
+    private JTextArea infos;
+
     public UserForm(String username){
-        frame.setSize(800, 900);
+        frame.setSize(800, 950);
         frame.setVisible(true);
         frame.setLayout(null);
         //add(user);
@@ -336,6 +338,18 @@ public class UserForm extends JFrame {
             }
         });
 
+        infos = new JTextArea("");
+        infos.setEditable(false);
+        infos.setBounds(300, 500, 500, 400);
+        infos.append("Tips: \n  If you want to add a product to your cart, please  select the product from the table and \n press the 'Add to cart' button.\n");
+        infos.append("  To complete your order, please press 'Order' button. If you want too see your invoice,\n there is  a  special button for this operation.\n");
+        infos.append("  If you are in a hurry, you can filter the products, so you can find what you want easier.\n");
+        infos.append("  In order to see what you ordered in the past, please choose the 'Order History' button. \n          Thank you for choosing us!");
+
+        frame.add(infos);
+
+
+
         frame.add(viewAll);
         back = new JButton("Back");
         back.setBounds(50,500,150,30);
@@ -344,7 +358,7 @@ public class UserForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 LogInVIew log =new LogInVIew();
                 log.setVisible(true);
-                dispose();
+                frame.dispose();
 
             }
         });

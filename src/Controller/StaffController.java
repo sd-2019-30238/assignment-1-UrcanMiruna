@@ -107,9 +107,26 @@ public class StaffController {
         productController.addProduct(product);
     }
 
-    public void setAmountProduct(int amount, Product product){
+    public void updateProduct(Product  pr, Product product){
         ProductController productController=new ProductController();
-        productController.updateProduct(product, amount);
+        Product pt = new Product(pr.getId(), product.getName(), product.getDescription(), product.getAmount(), product.getPrice(), product.getType());
+        productController.updateAll(pr, pt);
+    }
+
+    public void deleteProduct(Product p){
+        ProductController productController= new ProductController();
+        OrderController orderController  = new OrderController();
+        List<Order>orders = new ArrayList<>();
+        orderController.getAllOrders(orders);
+        int k=0;
+        for(Order ord:orders){
+            if(ord.getProduct().equals(p)){
+                k=1;
+            }
+        }
+        if(k==0){
+            productController.deleteProduct(p);
+        }
     }
 
     public static void main(String[] args){
