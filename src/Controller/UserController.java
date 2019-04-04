@@ -116,7 +116,10 @@ public class UserController {
         }
     }
 
-
+    public void getAllUsers(List<UserAccount> userAccounts){
+        UserAccess userAccess = new UserAccess();
+        userAccess.selectUser(userAccounts);
+    }
 
     public static void main(String[] args){
         UserController acc = new UserController();

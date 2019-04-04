@@ -44,7 +44,7 @@ public class OrderAccess {
                 UserAccount user = userAccess.userbyUsername(rs.getString("username"));
                 ProductAccess productAccess = new ProductAccess();
                 Product product= productAccess.productById(rs.getInt("id"));
-                orders.add(new Order(user, product, rs.getString("state"), rs.getInt("amountOrdered")));
+                orders.add(new Order(rs.getInt("id"),user, product, rs.getString("state"), rs.getInt("amountOrdered")));
             }
 
         }catch (SQLException d){
@@ -89,7 +89,7 @@ public class OrderAccess {
                 "       idProduct = ?,\n" +
                 "       state = ?,\n" +
                 "       amountOrdered = ?\n" +
-                " WHERE id = '?";
+                " WHERE id = "+ id;
         try(Connection conn = this.connect();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,order.getId());
@@ -97,7 +97,6 @@ public class OrderAccess {
             pstmt.setInt(3,order.getProduct().getId());
             pstmt.setString(4, order.getState());
             pstmt.setInt(5, order.getAmountOrdered());
-            pstmt.setInt(6, id);
             pstmt.executeUpdate();
         }catch (SQLException d){
             System.out.println(d.getMessage());
@@ -147,12 +146,15 @@ public class OrderAccess {
         productAccess.selectProduct(products);
 
 
-        orderAccess.insertOrder(new Order(userAccounts.get(2), products.get(2), "delivering", 2));
+       // orderAccess.insertOrder(new Order(userAccounts.get(2), products.get(2), "delivering", 2));
 
         orderAccess.selectOrders(list);
         for(Order ord: list){
             System.out.println(ord.toString());
         }
+        Order ord = list.get(0);
+        ord.setState("paid");
+        orderAccess.updateOrder(list.get(0).getId(),ord);
     }
 
 }

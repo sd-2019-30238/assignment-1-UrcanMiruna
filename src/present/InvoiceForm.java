@@ -32,6 +32,8 @@ public class InvoiceForm extends JFrame {
         }
         inv.setInvoicePrice(invoice);
         textArea1.append("Total price: "+invoice.getTotalPrice()+"");
-
+        dispose();
     }
+
+
 }

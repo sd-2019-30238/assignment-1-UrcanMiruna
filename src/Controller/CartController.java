@@ -2,7 +2,9 @@ package Controller;
 
 import model.Cart;
 import model.Product;
+import model.UserAccount;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartController {
@@ -30,7 +32,6 @@ public class CartController {
     public void deleteCart(Cart c){
         c = null;
     }
-
     public List<Cart> getCarts() {
         return carts;
     }

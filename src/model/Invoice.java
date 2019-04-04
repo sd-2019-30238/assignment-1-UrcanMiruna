@@ -24,6 +24,7 @@ public class Invoice {
 
     public Invoice(UserAccount user) {
         this.user = user;
+        productList = null;
     }
 
     public float getTotalPrice() {

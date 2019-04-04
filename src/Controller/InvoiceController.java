@@ -1,18 +1,19 @@
-package Controller;
 
-import com.sun.deploy.util.OrderedHashSet;
-import com.sun.javafx.UnmodifiableArrayList;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import dao.OrderAccess;
-import dao.UserAccess;
-import model.Invoice;
-import model.Order;
-import model.Product;
-import model.UserAccount;
+        package Controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+        import com.sun.deploy.util.OrderedHashSet;
+        import com.sun.javafx.UnmodifiableArrayList;
+        import com.sun.org.apache.xpath.internal.operations.Or;
+        import dao.OrderAccess;
+        import dao.UserAccess;
+        import model.Invoice;
+        import model.Order;
+        import model.Product;
+        import model.UserAccount;
+
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.stream.Collectors;
 
 public class InvoiceController {
 
@@ -63,10 +64,11 @@ public class InvoiceController {
         UserAccess userAccess=new UserAccess();
         List<UserAccount> userAccounts = new ArrayList<>();
         userAccess.selectUser(userAccounts);
-        UserAccount user = userAccess.userbyUsername("alina@yahoo.com");
+        UserAccount user = userAccess.userbyUsername("miruna@yahoo.com");
 
-       Invoice invoice = new Invoice(user);
-       invoiceController.setInvoicePrice(invoice);
-       System.out.println(invoice.getTotalPrice()+"");
+        Invoice invoice = new Invoice(user);
+        invoiceController.setInvoicePrice(invoice);
+        System.out.println(invoice.getTotalPrice()+"");
     }
 }
+

@@ -11,6 +11,7 @@ import dao.ProductAccess;
 import dao.StaffAccess;
 import model.*;
 
+import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -52,7 +53,7 @@ public class UserForm extends JFrame {
         String[] columns = {"Name", "Description", "Price", "Type", "Amount"};
         Object[][] data = {{}};
         //for(int i=0, i<)
-
+        CartController cartController = new CartController();
         DefaultTableModel model = new DefaultTableModel(new String[]{"Name", "Description", "Amount","Price", "Type"}, 0);
 
         ProductController pc = new ProductController();
@@ -128,22 +129,12 @@ public class UserForm extends JFrame {
         });
         frame.add(cartScroll);
         frame.add(history);
-        //this.pack();
 
-        /*invoice = new JButton("Invoice");
-        invoice.setBounds(50, 150, 150, 30);
-        invoice.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                InvoiceForm invoice = new InvoiceForm(username);
-                invoice.setVisible(true);
-            }
-        });
-        frame.add(invoice);*/
 
         UserController userController = new UserController();
         UserAccount user = userController.getUser(username);
         Cart cart = new Cart(user);
+
         Cart newCart = new Cart(user);
         List<Product> ord = new ArrayList<>();
 
@@ -157,9 +148,6 @@ public class UserForm extends JFrame {
             }
         });
         frame.add(invoice);
-
-
-
 
 
         addToCart = new JButton("Add to cart");
@@ -199,8 +187,9 @@ public class UserForm extends JFrame {
                 ProductController pc = new ProductController();
                List <Product> productList = pc.viewDeals();
                 for(int i=0; i<cart.getProductList().size(); i++) {
-                    if (cart.getProductList().get(i).getAmount() > Integer.parseInt(model1.getValueAt(i, 2).toString())) {
+                    if (cart.getProductList().get(i).getAmount() >= Integer.parseInt(model1.getValueAt(i, 2).toString())) {
                         orderController.insertOrder(cart.getProductList().get(i), user, Integer.parseInt(model1.getValueAt(i, 2).toString()));
+
                         for (Product p : productList) {
                             if (p.equals(cart.getProductList().get(i))) {
                                 //p.setPrice(p.getPrice()-Integer.parseInt(model1.getValueAt(i, 2).toString()));
@@ -209,9 +198,10 @@ public class UserForm extends JFrame {
 
                             }
                         }
+                        //model1.removeRow(i);
                     }
                 }
-
+                cart.deleteAll();
 
 
             }

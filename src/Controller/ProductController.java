@@ -63,7 +63,7 @@ public class ProductController {
         ProductAccess productAccess = new ProductAccess();
         List<Product> productList = new ArrayList<>();
         productAccess.selectProduct(productList);
-        Product pnou = new Product( p.getName(), p.getDescription(), p.getAmount()-amount, p.getPrice(), p.getType());
+        Product pnou = new Product(p.getId(), p.getName(), p.getDescription(), p.getAmount()-amount, p.getPrice(), p.getType());
         productAccess.updateProduct(p.getId(), pnou);
     }
 
@@ -89,7 +89,7 @@ public class ProductController {
         for(Product p:types){
             System.out.println(p.toString());
         }*/
-        Product p1 = new Product("bed", "hahaha", 4, 30.5f, "bedroom");
+        Product p1 = new Product("chair", "hahaha", 4, 45.5f, "office");
         pc.addProduct(p1);
         //pa.insertProduct(p1);
        // ProductAccess ppa = new ProductAccess();

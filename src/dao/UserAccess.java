@@ -32,7 +32,7 @@ public class UserAccess {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
             while(rs.next()){
-                staff.add(new UserAccount(
+                staff.add(new UserAccount(rs.getInt("id"),
                         rs.getString("name"), rs.getInt("age"),
                         rs.getString("address"), rs.getString("username"), rs.getString("password")));
             }

@@ -115,11 +115,14 @@ public class StaffController {
     public static void main(String[] args){
 
        StaffController staff = new StaffController();
-       staff.createAccount(new Person("ALina", 33, "Cluj"), "alina@gm.com", "alina", "staff");
-       StaffAccess st = new StaffAccess();
-       List<StaffAccount> list = new ArrayList<>();
-       st.selectStaff(list);
-
+       //staff.createAccount(new Person("ALina", 33, "Cluj"), "alina@gm.com", "alina", "staff");
+       //StaffAccess st = new StaffAccess();
+      // List<StaffAccount> list = new ArrayList<>();
+       //st.selectStaff(list);
+        OrderAccess ord = new OrderAccess();
+        List<Order> list = new ArrayList<>();
+        ord.selectOrders(list);
+        staff.setStateOrder(list.get(0), "paid");
 
         System.out.println(list.get(1).getId());
     }

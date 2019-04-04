@@ -1,16 +1,19 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 public class Cart {
     private UserAccount user;
     private List<Product> productList;
+    private float price;
 
     public Cart(UserAccount user) {
         this.user = user;
         this.productList = new ArrayList<>();
+
     }
 
     public UserAccount getUser() {
@@ -31,6 +34,19 @@ public class Cart {
     public void addProduct(Product product){
         this.productList.add(product);
     }
+    public void deleteAll(){
+        this.productList = new ArrayList<>();
+    }
+
+    public void setPrice(){
+        for(Product p : productList){
+            price += p.getPrice() * p.getAmount();
+        }
+    }
+    public float getPrice(){
+        return this.price;
+    }
+
 
     @Override
     public boolean equals(Object o) {
