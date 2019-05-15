@@ -6,7 +6,9 @@
 <body>
 <h1>Welcome!</h1>
 
-<p>Click <a th:href="@{/login}">here</a> login.</p>
-
+<form th:action="@{/login}" method="get">
+    <input type="submit" value="Login"></form>
+<form th:action="@{/users/register}" method="post">
+    <input type="submit" value="Register"></form>
 </body>
 </html>

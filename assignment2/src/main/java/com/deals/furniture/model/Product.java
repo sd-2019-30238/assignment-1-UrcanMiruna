@@ -8,8 +8,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "product")
 public class Product {
 
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idproduct")
     private Integer id;
 

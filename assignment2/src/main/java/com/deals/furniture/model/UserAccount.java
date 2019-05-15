@@ -13,7 +13,7 @@ import java.util.Objects;
 public class UserAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "iduseraccount")
     private Integer id;
 
@@ -30,7 +30,7 @@ public class UserAccount {
     private String address;
 
     @NotNull
-    @Pattern(regexp =" ^[A-Za-z0-9+_.-]+@(.+)$")
+    @Pattern(regexp ="^[A-Za-z0-9+_.-]+@(.+)$")
     @Email
     @Column(name = "username")
     private String username;
@@ -39,6 +39,7 @@ public class UserAccount {
     @Size(min = 6)
     @Column(name = "password")
     private String  password;
+    private String matchingPassword;
 
     public UserAccount(@NotNull String name, @NotNull Integer age, @NotNull String address, @NotNull String username, @NotNull String password) {
         this.name = name;
@@ -46,6 +47,15 @@ public class UserAccount {
         this.address = address;
         this.username = username;
         this.password = password;
+    }
+
+    public UserAccount(@NotNull String name, @NotNull Integer age, @NotNull String address, @NotNull @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$") @Email String username, @NotNull @Size(min = 6) String password, String matchingPassword) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
     }
 
     public UserAccount() {
@@ -127,5 +137,13 @@ public class UserAccount {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
     }
 }

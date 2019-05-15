@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StaffAccountRepository  extends CrudRepository<StaffAccount, Integer> {
+    StaffAccount findByUsername(String username);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface StaffService {
     List<StaffAccount> getAllUSers();
-    boolean addUser(StaffAccount userAccount);
+    void addUser(StaffAccount userAccount);
     void updateUser(StaffAccount userAccount);
     void deleteUser(StaffAccount userAccount);
     StaffAccount findByUsename(String user);

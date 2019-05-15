@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface UserService  {
     List<UserAccount> getAllUSers();
-    boolean addUser(UserAccount userAccount);
+    void addUser(UserAccount userAccount);
     void updateUser(UserAccount userAccount);
     void deleteUser(UserAccount userAccount);
-    UserAccount findByUsename(String user);
+    UserAccount findByUsername(String user);
 }
