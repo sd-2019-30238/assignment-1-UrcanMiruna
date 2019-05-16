@@ -30,14 +30,21 @@ public class Order {
     @Column(name = "amount")
     private Integer amountOrdered;
 
-    public Order(@NotNull String username, @NotNull Integer idProduct,  @NotNull Integer amountOrdered) {
+    @NotNull
+    @Column
+    private String password;
+
+    public Order(@NotNull String username, @NotNull Integer idProduct, @NotNull Integer amountOrdered, @NotNull String password) {
         this.username = username;
         this.idProduct = idProduct;
-        this.state="delivering";
         this.amountOrdered = amountOrdered;
+        this.password = password;
+        this.state="delivering";
     }
 
     public Order() {
+        this.state="delivering";
+
     }
 
     public Integer getId() {
@@ -80,6 +87,13 @@ public class Order {
         this.amountOrdered = amountOrdered;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -90,22 +104,12 @@ public class Order {
                 Objects.equals(getUsername(), order.getUsername()) &&
                 Objects.equals(getIdProduct(), order.getIdProduct()) &&
                 Objects.equals(getState(), order.getState()) &&
-                Objects.equals(getAmountOrdered(), order.getAmountOrdered());
+                Objects.equals(getAmountOrdered(), order.getAmountOrdered()) &&
+                Objects.equals(getPassword(), order.getPassword());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUsername(), getIdProduct(), getState(), getAmountOrdered());
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", idProduct=" + idProduct +
-                ", state='" + state + '\'' +
-                ", amountOrdered=" + amountOrdered +
-                '}';
+        return Objects.hash(getId(), getUsername(), getIdProduct(), getState(), getAmountOrdered(), getPassword());
     }
 }

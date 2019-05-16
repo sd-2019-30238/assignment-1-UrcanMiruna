@@ -7,9 +7,11 @@ import com.deals.furniture.model.Product;
 import com.deals.furniture.model.ProductRepository;
 import com.deals.furniture.model.StaffAccount;
 import com.deals.furniture.service.OrderService;
+import com.deals.furniture.service.ProductService;
 import com.deals.furniture.service.ProductServiceImpl;
 import com.deals.furniture.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/products")
@@ -26,7 +29,7 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @Autowired
     private OrderService orderService;
@@ -66,4 +69,40 @@ public class ProductController {
         model.addAttribute("orders", orderService.getAllOrders());
         return "/staffPage";
     }
+
+
+    @GetMapping(path="/type/kitchen")
+    public String kitchenType(Model model){
+        List<Product> products= productService.getAllProducts();
+        products.stream().filter(product -> product.getType().equalsIgnoreCase("kitchen")).collect(Collectors.toList());
+        model.addAttribute("products", products);
+        return "/furniture";
+    }
+
+    @GetMapping(path="/type/bedroom")
+    public String bedroomType(Model model){
+        Iterable<Product> products= productRepository.findAll();
+        List<Product> products1 = null;
+        for(Product p : products){
+           products1.add(p);
+        }
+        products1.stream().filter(product -> product.getType().equalsIgnoreCase("bedroom")).collect(Collectors.toList());
+        model.addAttribute("products", products1);
+        return "/furniture";
+    }
+    @GetMapping(path="/type/office")
+    public String officeType(Model model){
+        List<Product> products= productService.getAllProducts();
+        products.stream().filter(product -> product.getType().equalsIgnoreCase("office")).collect(Collectors.toList());
+        model.addAttribute("products", products);
+        return "/furniture";
+    }
+    @GetMapping(path="/type/living-room")
+    public String livingType(Model model){
+        List<Product> products= productService.getAllProducts();
+        products.stream().filter(product -> product.getType().equalsIgnoreCase("livingroom")).collect(Collectors.toList());
+        model.addAttribute("products", products);
+        return "/furniture";
+    }
+
 }

@@ -18,26 +18,26 @@ table,th,td{
 <p>Welcome. Please search the products you want to order!</p>
 <table style="width:50%">
     <tr>
-    <th>Id</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Amount</th>
-    <th>Price</th>
-    <th>Type</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Type</th>
     </tr>
     <tbody>
-        <tr th:if="${products.empty}" >
-            <td colspan="2"> No products available</td>
-        </tr>
-        <tr th:each="product: ${products}">
-            <td><span th:text="${product.id}">Id</span></td>
-            <td><span th:text="${product.name}">Name</span></td>
-            <td><span th:text="${product.description}">Description</span></td>
-            <td><span th:text="${product.amount}">Amount</span></td>
-            <td><span th:text="${product.price}">Price</span></td>
-            <td><span th:text="${product.type}">Type</span></td>
+    <tr th:if="${products.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td><span th:text="${product.id}">Id</span></td>
+        <td><span th:text="${product.name}">Name</span></td>
+        <td><span th:text="${product.description}">Description</span></td>
+        <td><span th:text="${product.amount}">Amount</span></td>
+        <td><span th:text="${product.price}">Price</span></td>
+        <td><span th:text="${product.type}">Type</span></td>
 
-        </tr>
+    </tr>
     </tbody>
 </table>
 </body>

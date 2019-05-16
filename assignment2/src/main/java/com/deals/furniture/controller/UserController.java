@@ -6,20 +6,19 @@ import com.deals.furniture.service.OrderService;
 import com.deals.furniture.service.ProductService;
 import com.deals.furniture.service.StaffService;
 import com.deals.furniture.service.UserService;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
-import javax.jws.WebParam;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,23 +30,36 @@ public class UserController {
     private OrderRepository orderRepository;
 
     @Autowired
+    private OrderService orderService;
+
+    @Autowired
     private StaffService staffService;
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping("/all")
-    public String showAll(Model model){
+    public String showAll(Model model) {
+        //templateResolver.
         model.addAttribute("products", productRepository.findAll());
         model.addAttribute("productId", productRepository.findAll());
 
         return "/furniture";
     }
 
+    @GetMapping("/register")
+    public String getPage(Model model){
+        model.addAttribute("userAccount", new UserAccount());
+        return "register";
+    }
+
     @PostMapping("/register")
     public String getData(ServletWebRequest request, @Valid @ModelAttribute("userAccount") UserAccount userAccount, BindingResult result){
-       if(result.hasErrors()){
-           return "/register";
-       }
+        /*if(result.hasErrors()){
+            return "/register";
+        }*/
        if(userAccountRepository.findByUsername(userAccount.getUsername())==null && staffService.findByUsename(userAccount.getUsername())==null) {
            if (request.getParameterValues("user") != null) {
 
@@ -56,29 +68,32 @@ public class UserController {
            } else {
                StaffAccount staffAccount = new StaffAccount(userAccount.getName(), userAccount.getAge(), userAccount.getAddress(), userAccount.getUsername(), userAccount.getPassword());
                staffService.addUser(staffAccount);
-               return "/home";
+               return "/staffPage/all";
            }
        }
        return "/tt";
 
     }
+    @GetMapping("/order")
+    public String order(Model model){
+        model.addAttribute("cart", new Order());
+        return "order";
+    }
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
 
 
    @PostMapping("/order")
-   public String placeOrder(@Valid @ModelAttribute("cart")Cart cart, BindingResult result){
-       if(result.hasErrors()){
-           return "/order";
-       }
+   public String placeOrder(@Valid @ModelAttribute("cart")Order cart, BindingResult result){
+
        UserAccount userAccount=userAccountRepository.findByUsername(cart.getUsername());
        if(cart!=null && cart.getUsername().equals(userAccount.getUsername()) && cart.getPassword().equals(userAccount.getPassword())){
-           return "/hello";
+          orderService.addOrder(cart);
+          return "/order";
        }
-       return "/logorreg";
+       return "/error";
    }
-
-    @GetMapping("/login")
-    public String login(Model model){
-        return "/login";
-    }
 
 }

@@ -4,6 +4,7 @@ package com.deals.furniture.service;
 import com.deals.furniture.model.Product;
 import com.deals.furniture.model.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,9 +18,7 @@ public class ProductServiceImpl  implements ProductService{
     private ProductRepository productRepository;
 
     @Override
-    public Optional<Product> getProductbyId(int id) {
-       return  productRepository.findById(id);
-    }
+    public Optional<Product> getProductbyId(int id) { return productRepository.findById(id);}
 
     @Override
     public List<Product> getAllProducts() {

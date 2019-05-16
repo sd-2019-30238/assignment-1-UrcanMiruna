@@ -4,19 +4,25 @@ package com.deals.furniture.service;
 import com.deals.furniture.model.Order;
 import com.deals.furniture.model.OrderRepository;
 import com.deals.furniture.model.Product;
+import com.deals.furniture.model.ProductRepository;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class OrderServiceImpls implements OrderService {
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -36,11 +42,17 @@ public class OrderServiceImpls implements OrderService {
 
     @Override
     public void addOrder(Order order) {
-        Optional<Product>  product=productService.getProductbyId(order.getIdProduct());
-        if(order.getAmountOrdered()<product.get().getAmount()){
+        Iterable<Product> products = productRepository.findAll();
+        Product product=null;
+        for(Product p:products){
+            if(p.getId().equals(order.getIdProduct())){
+                product=p;
+            }
+        }
+        if(order.getAmountOrdered()<product.getAmount()){
             orderRepository.save(order);
-            product.get().setAmount(product.get().getAmount()-order.getAmountOrdered());
-            productService.updateProduct(product.get());
+            product.setAmount(product.getAmount()-order.getAmountOrdered());
+            productService.updateProduct(product);
         }
 
     }
