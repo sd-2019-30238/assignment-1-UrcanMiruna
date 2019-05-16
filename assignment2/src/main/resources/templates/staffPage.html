@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Best Furniture deals</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <style>
+table, th, td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+table,th,td{
+    padding : 5px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<p>Welcome. Please search the products you want to order!</p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Type</th>
+    </tr>
+    <tbody>
+    <tr th:if="${products.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td><span th:text="${product.id}">Id</span></td>
+        <td><span th:text="${product.name}">Name</span></td>
+        <td><span th:text="${product.description}">Description</span></td>
+        <td><span th:text="${product.amount}">Amount</span></td>
+        <td><span th:text="${product.price}">Price</span></td>
+        <td><span th:text="${product.type}">Type</span></td>
+
+    </tr>
+    </tbody>
+</table>
+<p></p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Id Product</th>
+        <th>stateOrder</th>
+        <th>Amount Ordered</th>
+    </tr>
+    <tbody>
+    <tr th:if="${orders.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="order: ${orders}">
+        <td><span th:text="${order.id}">Id</span></td>
+        <td><span th:text="${order.username}">Username</span></td>
+        <td><span th:text="${order.idProduct}">Id Product</span></td>
+        <td><span th:text="${order.state}">stateOrder</span></td>
+        <td><span th:text="${order.amountOrdered}">Amount Ordered</span></td>
+
+    </tr>
+    </tbody>
+</table>
+<p></p>
+<form th:action="@{/logorreg}" method="get">
+    <input type="submit" value="Sign Out">
+</form>
+<p></p>
+<form th:action="@{/products/filter/kitchen}" method="get">
+    <input type="submit" value="Kitchen discount"></form>
+<p></p>
+<form th:action="@{/products/filter/bedroom}" method="get">
+    <input type="submit" value="Bedroom discount"></form>
+<p></p>
+<form th:action="@{/products/filter/livingroom}" method="get">
+    <input type="submit" value="Living room discount"></form>
+<p></p>
+<form th:action="@{/products/filter/livingroom}" method="get">
+    <input type="submit" value="Living room discount"></form>
+<p></p>
+<form name="f" th:object;=""
+<p></p>
+<form th:action="@{/products/select}" method="get">
+    <input type="submit" value="Living room discount">
+    <option value="0">select product id</option>
+</form>
+
+
+
+
+
+
+</body>
+</html>
+
+</body>
+</html>

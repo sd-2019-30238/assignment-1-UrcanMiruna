@@ -9,5 +9,8 @@ public interface OrderService {
     void addOrder(Order userAccount);
     void updateOrder(Order userAccount);
     void deleteOrder(Order userAccount);
+    List<Order> getOrdersByUsername(String username);
+    Float gettotalPrice(String username);
+    void validateOrder(Order order);
 
 }

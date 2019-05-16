@@ -5,11 +5,12 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "deal")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="iddeal")
     private Integer id;
 
 
@@ -18,7 +19,7 @@ public class Order {
     private String username;
 
     @NotNull
-    @Column(name = "idProduct")
+    @Column(name = "product")
     private Integer idProduct;
 
     @NotNull
@@ -26,13 +27,13 @@ public class Order {
     private String state;
 
     @NotNull
-    @Column(name = "amountOrdered")
+    @Column(name = "amount")
     private Integer amountOrdered;
 
-    public Order(@NotNull String username, @NotNull Integer idProduct, @NotNull String state, @NotNull Integer amountOrdered) {
+    public Order(@NotNull String username, @NotNull Integer idProduct,  @NotNull Integer amountOrdered) {
         this.username = username;
         this.idProduct = idProduct;
-        this.state = state;
+        this.state="delivering";
         this.amountOrdered = amountOrdered;
     }
 

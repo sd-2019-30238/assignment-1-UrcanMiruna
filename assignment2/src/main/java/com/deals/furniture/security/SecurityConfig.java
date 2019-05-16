@@ -1,7 +1,9 @@
 package com.deals.furniture.security;
 
+import com.deals.furniture.model.StaffAccount;
 import com.deals.furniture.model.UserAccount;
 import com.deals.furniture.model.UserAccountRepository;
+import com.deals.furniture.service.StaffService;
 import com.deals.furniture.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +12,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,11 +24,14 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public SecurityConfig(){
+        super();
+    }
+
     @Autowired
-    private UserAccountRepository userAccountRepository;
+    private StaffService staffService;
 
     @Autowired
     private UserService userService;
@@ -43,7 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/logorreg" )
-                .permitAll();
+                .permitAll()
+                .and()
+                .csrf().disable();
     }
 
     @Bean
@@ -53,8 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         List<UserAccount> userAccounts = userService.getAllUSers();
         for(UserAccount userAccount:userAccounts){
-            manager.createUser(User.withUsername(userAccount.getUsername()).password(encoder().encode(userAccount.getPassword())).roles("user").build());
+            manager.createUser(User.withUsername(userAccount.getUsername()).password(encoder().encode(userAccount.getPassword())).roles("USER").build());
 
+        }
+
+        List<StaffAccount> staffAccounts =staffService.getAllUSers();
+        for(StaffAccount staffAccount:staffAccounts){
+            manager.createUser(User.withUsername(staffAccount.getUsername()).password(encoder().encode(staffAccount.getPassword())).roles("ADMIN").build());
         }
         return manager;
     }

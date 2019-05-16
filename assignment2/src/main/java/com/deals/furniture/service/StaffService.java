@@ -11,4 +11,5 @@ public interface StaffService {
     void updateUser(StaffAccount userAccount);
     void deleteUser(StaffAccount userAccount);
     StaffAccount findByUsename(String user);
+    void appyDiscout(String type);
 }

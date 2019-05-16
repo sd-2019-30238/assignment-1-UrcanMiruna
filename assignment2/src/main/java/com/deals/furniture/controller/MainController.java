@@ -26,5 +26,10 @@ public class MainController {
         return "/hello";
     }
 
+    @GetMapping("tt")
+    public String tt(){
+        return "/tt";
+    }
+
 
 }

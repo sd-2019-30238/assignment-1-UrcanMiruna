@@ -32,14 +32,12 @@ public class ProductServiceImpl  implements ProductService{
     }
 
     @Override
-    public synchronized boolean addProduct(Product product) {
+    public  void addProduct(Product product) {
         Optional<Product> p = productRepository.findById(product.getId());
-        if(p.equals(null)){
-            return false;
-        }else{
+        if(p==null) {
             productRepository.save(product);
-            return true;
         }
+
     }
 
     @Override

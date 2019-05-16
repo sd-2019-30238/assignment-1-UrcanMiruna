@@ -12,7 +12,7 @@ import java.util.Objects;
 public class StaffAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idstaffaccount")
     private Integer id;
 
@@ -29,7 +29,7 @@ public class StaffAccount {
     private String address;
 
     @NotNull
-    @Pattern(regexp =" ^[A-Za-z0-9+_.-]+@(.+)$")
+    @Pattern(regexp ="^[A-Za-z0-9+_.-]+@(.+)$")
     @Column(name = "username")
     private String username;
 

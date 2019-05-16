@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Best FurnitureDeals</title>
+</head>
+<body>
+<form action="#" th:action="@{/users/register}" th:object="${userAccount}" method="post">
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" th:field="*{name}" name="name" id="name"></input></td>
+        </tr>
+        <tr>
+            <td><label for="age">Age</label></td>
+            <td><input type="text" th:field="*{age}" name="age" id="age"></input></td>
+        </tr>
+        <tr>
+            <td><label for="address">Address</label></td>
+            <td><input type="text" th:field="*{address}" name="address" id="address"></input></td>
+        </tr>
+        <tr>
+            <td><label for="username">UserName</label></td>
+            <td><input type="text" th:field="*{username}" name="username" id="username"></input></td>
+        </tr>
+        <tr>
+            <td><label for="password">Password</label></td>
+            <td><input type="password" th:field="*{password}" name="password" id="password"></input></td>
+        </tr>
+        <tr>
+            <td><label for="matchingPassword">Password</label></td>
+            <td><input type="password" th:field="*{matchingPassword}" name="matchingPassword" id="matchingPassword"></input></td>
+        </tr>
+        <tr>
+
+            <input id="user" name="user" type="checkbox" value="false" th:checked="${false}"/>
+            <label for="user">user</label>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+
+</body>
+</html>

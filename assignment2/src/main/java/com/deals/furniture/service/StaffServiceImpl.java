@@ -1,9 +1,6 @@
 package com.deals.furniture.service;
 
-import com.deals.furniture.model.StaffAccount;
-import com.deals.furniture.model.StaffAccountRepository;
-import com.deals.furniture.model.UserAccount;
-import com.deals.furniture.model.UserAccountRepository;
+import com.deals.furniture.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +16,9 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffAccountRepository staffAccountRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Override
     public List<StaffAccount> getAllUSers() {
         Iterable <StaffAccount> userAccounts = staffAccountRepository.findAll();
@@ -30,6 +30,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    @Transactional
+
     public void addUser(StaffAccount userAccount) {
         staffAccountRepository.save(userAccount);
     }
@@ -49,5 +51,31 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffAccount findByUsename(String user) {
         return staffAccountRepository.findByUsername(user);
+    }
+
+    @Override
+    public void appyDiscout(String type) {
+        float discount=0;
+        if(type.equalsIgnoreCase("bedroom")){
+            discount = 0.25f;
+        }else{
+            if(type.equalsIgnoreCase("kitchen")){
+                discount=0.2f;
+            }
+            else{
+                if(type.equalsIgnoreCase("bedroom")){
+                    discount=0.3f;
+                }
+            }
+        }
+
+        List<Product> products= productService.getAllProducts();
+        for(Product p :  products){
+            if ( p.getType().equalsIgnoreCase(type)){
+                p.setPrice((float) (p.getPrice() - discount*p.getPrice()));
+                productService.updateProduct(p);
+
+            }
+        }
     }
 }

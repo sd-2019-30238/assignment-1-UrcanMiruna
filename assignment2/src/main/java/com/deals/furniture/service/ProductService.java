@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ProductService {
     List<Product> getAllProducts();
     Optional<Product> getProductbyId(int id);
-    boolean addProduct(Product product);
+    void addProduct(Product product);
     void updateProduct( Product product);
     void deleteProduct(Product product);
 }
