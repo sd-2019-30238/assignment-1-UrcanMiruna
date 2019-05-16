@@ -52,6 +52,10 @@ public class StaffController {
         return "/tt";
 
     }
+    @GetMapping("/validate")
+    public String validate(){
+        return "/staffPage";
+    }
 
 
 }

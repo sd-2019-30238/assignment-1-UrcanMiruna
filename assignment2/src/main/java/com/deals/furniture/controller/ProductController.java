@@ -74,34 +74,26 @@ public class ProductController {
     @GetMapping(path="/type/kitchen")
     public String kitchenType(Model model){
         List<Product> products= productService.getAllProducts();
-        products.stream().filter(product -> product.getType().equalsIgnoreCase("kitchen")).collect(Collectors.toList());
-        model.addAttribute("products", products);
+        model.addAttribute("products",   products.stream().filter(product -> product.getType().equalsIgnoreCase("kitchen")).collect(Collectors.toList()));
         return "/furniture";
     }
 
     @GetMapping(path="/type/bedroom")
     public String bedroomType(Model model){
-        Iterable<Product> products= productRepository.findAll();
-        List<Product> products1 = null;
-        for(Product p : products){
-           products1.add(p);
-        }
-        products1.stream().filter(product -> product.getType().equalsIgnoreCase("bedroom")).collect(Collectors.toList());
-        model.addAttribute("products", products1);
+        List<Product> products1 = productService.getAllProducts();
+        model.addAttribute("products", products1.stream().filter(product -> product.getType().equalsIgnoreCase("bedroom")).collect(Collectors.toList()));
         return "/furniture";
     }
     @GetMapping(path="/type/office")
     public String officeType(Model model){
         List<Product> products= productService.getAllProducts();
-        products.stream().filter(product -> product.getType().equalsIgnoreCase("office")).collect(Collectors.toList());
-        model.addAttribute("products", products);
+        model.addAttribute("products", products.stream().filter(product -> product.getType().equalsIgnoreCase("office")).collect(Collectors.toList()));
         return "/furniture";
     }
     @GetMapping(path="/type/living-room")
     public String livingType(Model model){
         List<Product> products= productService.getAllProducts();
-        products.stream().filter(product -> product.getType().equalsIgnoreCase("livingroom")).collect(Collectors.toList());
-        model.addAttribute("products", products);
+        model.addAttribute("products", products.stream().filter(product -> product.getType().equalsIgnoreCase("livingroom")).collect(Collectors.toList()));
         return "/furniture";
     }
 
