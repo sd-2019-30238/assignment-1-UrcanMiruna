@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Best FurnitureDeals</title>
+</head>
+<body>
+<form action="#" th:action="@{/staffPage/addProduct}" th:object="${product}" method="post">
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" th:field="*{name}" name="name" id="name"></input></td>
+        </tr>
+        <tr>
+            <td><label for="description">Description</label></td>
+            <td><input type="text" th:field="*{description}" name="description" id="description"></input></td>
+        </tr>
+        <tr>
+            <td><label for="amount">Amount</label></td>
+            <td><input type="text" th:field="*{amount}" name="amount" id="amount"></input></td>
+        </tr>
+        <tr>
+            <td><label for="price">Price</label></td>
+            <td><input type="text" th:field="*{price}" name="price" id="price"></input></td>
+        </tr>
+        <tr>
+            <td><label for="type">Type</label></td>
+            <td><input type="text" th:field="*{type}" name="type" id="type"></input></td>
+
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+
+</body>
+</html>

@@ -59,4 +59,11 @@ public class ProductController {
         model.addAttribute("orders", orderService.getAllOrders());
         return "/staffPage";
     }
+    @GetMapping(path="/filter/office")
+    public String office(Model model){
+        staffService.appyDiscout("office");
+        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "/staffPage";
+    }
 }

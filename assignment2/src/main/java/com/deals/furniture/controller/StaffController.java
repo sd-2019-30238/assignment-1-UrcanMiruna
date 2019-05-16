@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.validation.Valid;
 
@@ -32,6 +33,24 @@ public class StaffController {
         model.addAttribute("products", productService.findAll());
         model.addAttribute("orders", orderService.getAllOrders());
         return "/staffPage";
+    }
+    @GetMapping("/loginStaff")
+    public String login(Model model){
+        return "/login";
+    }
+
+    @PostMapping("/addProduct")
+    public String getData(ServletWebRequest request, @Valid @ModelAttribute("product") Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/addProduct";
+        }
+        if (product.getPrice() > 0 && product.getAmount() > 0){
+            productService.save(
+                    product);
+        return "/logorreg";
+        }
+        return "/tt";
+
     }
 
 

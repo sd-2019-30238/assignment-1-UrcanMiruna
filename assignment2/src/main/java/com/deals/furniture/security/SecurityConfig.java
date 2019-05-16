@@ -39,12 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/logorreg","/","/users/register").permitAll()
+                .antMatchers("/logorreg","/","/users/register","/users/all", "users/getProduct").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/hello")
+                .defaultSuccessUrl("/staffPage/all")
                 .permitAll()
                 .and()
                 .logout()
@@ -59,11 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
 
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        List<UserAccount> userAccounts = userService.getAllUSers();
-        for(UserAccount userAccount:userAccounts){
-            manager.createUser(User.withUsername(userAccount.getUsername()).password(encoder().encode(userAccount.getPassword())).roles("USER").build());
-
-        }
 
         List<StaffAccount> staffAccounts =staffService.getAllUSers();
         for(StaffAccount staffAccount:staffAccounts){

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Registration</title>
+</head>
+<body>
+<form action="#" th:action="@{/users/order" th:object="${cart}" method="post">
+    <table>
+        <tr>
+            <td><label for="idProduct">idproduct</label></td>
+            <td><input type="text" th:field="*{idProduct}" name="idProduct" id="idProduct"></input></td>
+        </tr>
+        <tr>
+            <td><label for="amount">amount</label></td>
+            <td><input type="text" th:field="*{amount}" name="amount" id="amount"></input></td>
+        </tr>
+        <tr>
+            <td><label for="username">username</label></td>
+            <td><input type="text" th:field="*{username}" name="username" id="username"></input></td>
+        </tr>
+
+        <tr>
+            <td><label for="password">password</label></td>
+            <td><input type="text" th:field="*{password}" name="password" id="password"></input></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+
+    </table>
+</form>
+
+</body>
+</html>

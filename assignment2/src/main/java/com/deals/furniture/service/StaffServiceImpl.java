@@ -65,6 +65,10 @@ public class StaffServiceImpl implements StaffService {
             else{
                 if(type.equalsIgnoreCase("bedroom")){
                     discount=0.3f;
+                }else{
+                    if(type.equalsIgnoreCase("office")){
+                        discount=0.15f;
+                    }
                 }
             }
         }
