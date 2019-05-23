@@ -1,23 +1,17 @@
 package com.deals.furniture.controller;
 
 
-import com.deals.furniture.FactoryPattern.Discount;
-import com.deals.furniture.FactoryPattern.DiscountFactory;
 import com.deals.furniture.model.Product;
 import com.deals.furniture.model.ProductRepository;
-import com.deals.furniture.model.StaffAccount;
 import com.deals.furniture.service.OrderService;
 import com.deals.furniture.service.ProductService;
-import com.deals.furniture.service.ProductServiceImpl;
 import com.deals.furniture.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Comparator;
 import java.util.List;

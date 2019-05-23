@@ -5,6 +5,7 @@
     <title>Best Furniture Deals</title>
 </head>
 <body>
+<p> This are your orders that you already paid.</p>
 <table style="width:50%">
     <tr>
         <th>Id</th>
@@ -26,6 +27,7 @@
     </tr>
     </tbody>
 </table>
+<p> This are the orders that you have to pay.</p>
 <table style="width:50%">
     <tr>
         <th>Id</th>
@@ -47,7 +49,7 @@
     </tr>
     </tbody>
 </table>
-
+<p>A message with the total amount of money for the orders that still needs to be validated by one of our users has been sent to you when you logged in.</p>
 <form th:action="@{/users/all}" method="get">
     <input type="submit" value="Sign Out"></form>
 </body>
