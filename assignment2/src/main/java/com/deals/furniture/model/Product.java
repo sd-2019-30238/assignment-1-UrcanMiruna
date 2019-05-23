@@ -3,10 +3,11 @@ package com.deals.furniture.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Observable;
 
 @Entity
 @Table(name = "product")
-public class Product {
+public class Product  {
 
 
 

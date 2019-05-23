@@ -11,8 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/staffPage")
@@ -53,8 +57,37 @@ public class StaffController {
 
     }
     @GetMapping("/validate")
-    public String validate(){
+    public String validate(Model model){
         return "/staffPage";
+    }
+
+    @PostMapping("/validate/{id}")
+    public String validare(@PathVariable("id") Integer id, Model model){
+        Optional<Order> order=orderService.getOrderId(id);
+        orderService.validateOrder(order.get());
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "/staffPage";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id")Integer id, Model model){
+        Optional<Product> product=productService.findById(id);
+        List<Order> orders = orderService.getAllOrders();
+        for(Order order:orders) {
+            if (order.getIdProduct().equals(id) && order.getState().equalsIgnoreCase("delivering")) {
+                return "/message";
+            }
+        }
+         productService.delete(product.get());
+        model.addAttribute("products", productService.findAll());
+        model.addAttribute("orders", orderService.getAllOrders());
+        return "/staffPage";
+    }
+
+    @GetMapping("/error")
+    public String error(){
+        return "/erroe1";
     }
 
 

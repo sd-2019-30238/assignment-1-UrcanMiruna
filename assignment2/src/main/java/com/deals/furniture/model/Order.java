@@ -2,11 +2,14 @@ package com.deals.furniture.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import com.deals.furniture.model.Observer;
 
 @Entity
 @Table(name = "deal")
-public class Order {
+public class  Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -108,8 +111,22 @@ public class Order {
                 Objects.equals(getPassword(), order.getPassword());
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getUsername(), getIdProduct(), getState(), getAmountOrdered(), getPassword());
     }
+//    private List<Observer> observers=new ArrayList<>();
+//
+//    public void attach(Observer observer){
+//        observers.add(observer);
+//    }
+//
+//    public void notifyAllObservers() {
+//        for(Observer observer: observers){
+//            observer.update();
+//        }
+//    }
+//
+
 }

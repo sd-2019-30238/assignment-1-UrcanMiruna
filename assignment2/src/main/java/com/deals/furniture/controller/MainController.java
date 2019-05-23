@@ -17,6 +17,10 @@ public class MainController {
     public String login(Model model){
         return "/login";
     }
+    @GetMapping("/loginStaff")
+    public String loginStaff(Model model){
+        return "/loginStaff";
+    }
     @GetMapping("/logorreg")
     public String logorreg(){
         return "logorreg";
@@ -46,5 +50,17 @@ public class MainController {
     @GetMapping("/users")
     public String back(){
         return "/users/all";
+    }
+    @GetMapping("/erroe1")
+    public String err(){
+        return "/erroe1";
+    }
+    @GetMapping("/message")
+    public String message(){
+        return "/message";
+    }
+    @GetMapping("/invoice")
+    public String inv(){
+        return "/invoice";
     }
 }

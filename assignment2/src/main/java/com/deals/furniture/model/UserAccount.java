@@ -6,6 +6,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,7 +15,7 @@ import java.util.Objects;
 public class UserAccount {
 
     @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "iduseraccount")
     private Integer id;
 
@@ -30,7 +32,7 @@ public class UserAccount {
     private String address;
 
     @NotNull
-    @Pattern(regexp ="^[A-Za-z0-9+_.-]+@(.+)$")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
     @Email
     @Column(name = "username")
     private String username;
@@ -38,7 +40,7 @@ public class UserAccount {
     @NotNull
     @Size(min = 6)
     @Column(name = "password")
-    private String  password;
+    private String password;
     private String matchingPassword;
 
     public UserAccount(@NotNull String name, @NotNull Integer age, @NotNull String address, @NotNull String username, @NotNull String password) {
@@ -146,4 +148,5 @@ public class UserAccount {
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
     }
+
 }

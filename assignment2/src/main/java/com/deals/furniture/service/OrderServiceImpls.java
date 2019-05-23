@@ -11,15 +11,13 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Stack;
+import java.util.*;
 import java.util.stream.Collectors;
+import com.deals.furniture.model.Observer;
 
 @Service
 @Transactional
-public class OrderServiceImpls implements OrderService {
+public class OrderServiceImpls extends Observer implements OrderService {
 
     @Autowired
     private ProductRepository productRepository;
@@ -70,8 +68,7 @@ public class OrderServiceImpls implements OrderService {
     @Override
     public List<Order> getOrdersByUsername(String username) {
         List<Order> orders = this.getAllOrders();
-        orders.stream().filter(order -> order.getUsername().equalsIgnoreCase(username)).collect(Collectors.toList());
-        return orders;
+        return orders.stream().filter(order -> order.getUsername().equalsIgnoreCase(username)).collect(Collectors.toList());
     }
 
 
@@ -80,15 +77,43 @@ public class OrderServiceImpls implements OrderService {
         List<Order> orders = this.getOrdersByUsername(username);
         Float price=0.0f;
         for(Order order:orders){
-            Optional<Product> product=productService.getProductbyId(order.getIdProduct());
-            price+=order.getAmountOrdered()* product.get().getPrice();
+            Product product=productRepository.findProductById(order.getIdProduct());
+            price+=order.getAmountOrdered()* product.getPrice();
         }
         return price;
     }
 
     @Override
     public void validateOrder(Order order) {
-        order.setState("paid");
-        orderRepository.save(order);
+        if(order.getState().equalsIgnoreCase("delivering")){
+            order.setState("paid");
+            orderRepository.save(order);
+            update(order);
+        }
+    }
+
+    @Override
+    public Order getOrderByID(Integer id) {
+        Optional<Order> order = orderRepository.findById(id);
+        Order order1 = null;
+        order1.setId(order.get().getId());
+        order1.setIdProduct(order.get().getIdProduct());
+        order1.setState(order.get().getState());
+        order1.setAmountOrdered(order.get().getAmountOrdered());
+        order1.setUsername(order.get().getUsername());
+        order1.setPassword(order.get().getPassword());
+        return order1;
+    }
+
+    @Override
+    public Optional<Order> getOrderId(Integer id) {
+            return orderRepository.findById(id);
+    }
+
+    @Override
+    public void update(Order order) {
+        Optional<Product> product=productService.getProductbyId(order.getIdProduct());
+        System.out.println("The order  for username "+order.getUsername()+" for the product "+order.getIdProduct()
+        );
     }
 }

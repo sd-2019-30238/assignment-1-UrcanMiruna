@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,6 +95,18 @@ public class ProductController {
     public String livingType(Model model){
         List<Product> products= productService.getAllProducts();
         model.addAttribute("products", products.stream().filter(product -> product.getType().equalsIgnoreCase("livingroom")).collect(Collectors.toList()));
+        return "/furniture";
+    }
+    @GetMapping(path="/type/price")
+    public String price(Model model){
+        List<Product> products= productService.getAllProducts();
+        model.addAttribute("products", products.stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList()));
+        return "/furniture";
+    }
+    @GetMapping(path="/type/name")
+    public String name(Model model){
+        List<Product> products= productService.getAllProducts();
+        model.addAttribute("products", products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList()));
         return "/furniture";
     }
 
