@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+</head>
+<body>
+<p> This are your orders that you already paid.</p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Id Product</th>
+        <th>stateOrder</th>
+        <th>Amount Ordered</th>
+    </tr>
+    <tbody>
+    <tr th:if="${history.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="order: ${history}">
+        <td><span th:text="${order.id}">Id</span></td>
+        <td><span th:text="${order.username}">Username</span></td>
+        <td><span th:text="${order.idProduct}">Id Product</span></td>
+        <td><span th:text="${order.state}">stateOrder</span></td>
+        <td><span th:text="${order.amountOrdered}">Amount Ordered</span></td>
+    </tr>
+    </tbody>
+</table>
+<p> This are the orders that you have to pay.</p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Username</th>
+        <th>Id Product</th>
+        <th>stateOrder</th>
+        <th>Amount Ordered</th>
+    </tr>
+    <tbody>
+    <tr th:if="${invoice.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="order: ${invoice}">
+        <td><span th:text="${order.id}">Id</span></td>
+        <td><span th:text="${order.username}">Username</span></td>
+        <td><span th:text="${order.idProduct}">Id Product</span></td>
+        <td><span th:text="${order.state}">stateOrder</span></td>
+        <td><span th:text="${order.amountOrdered}">Amount Ordered</span></td>
+    </tr>
+    </tbody>
+</table>
+<p>A message with the total amount of money for the orders that still needs to be validated by one of our users has been sent to you when you logged in.</p>
+<form th:action="@{/users/all}" method="get">
+    <input type="submit" value="Sign Out"></form>
+</body>
+</html>

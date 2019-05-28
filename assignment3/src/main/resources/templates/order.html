@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+<p>Please insert data for the orders, then press submit. If you changed your mind, press Sign Out! Thanks for your orders.</p>
+<form action="#" th:action="@{/users/order}" th:object="${cart}" method="post">
+    <table>
+        <tr>
+            <td><label for="idProduct">idproduct</label></td>
+            <td><input type="text" th:field="*{idProduct}" name="idProduct" id="idProduct"></input></td>
+        </tr>
+        <tr>
+            <td><label for="amountOrdered">amount</label></td>
+            <td><input type="text" th:field="*{amountOrdered}" name="amount" id="amountOrdered"></input></td>
+        </tr>
+        <tr>
+            <td><label for="username">username</label></td>
+            <td><input type="text" th:field="*{username}" name="username" id="username"></input></td>
+        </tr>
+
+        <tr>
+            <td><label for="password">password</label></td>
+            <td><input type="password" th:field="*{password}" name="password" id="password"></input></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"></td>
+        </tr>
+
+    </table>
+</form>
+<form th:action="@{/users/all}" method="get">
+    <input type="submit" value="Sign Out"></form>
+
+
+</body>
+</html>

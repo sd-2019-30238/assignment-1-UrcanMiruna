@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <style>
+table, th, td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+table,th,td{
+    padding : 5px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<p>Welcome. Please search the products you want to order!</p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Type</th>
+    </tr>
+    <tbody>
+    <tr th:if="${products.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td><span th:text="${product.id}">Id</span></td>
+        <td><span th:text="${product.name}">Name</span></td>
+        <td><span th:text="${product.description}">Description</span></td>
+        <td><span th:text="${product.amount}">Amount</span></td>
+        <td><span th:text="${product.price}">Price</span></td>
+        <td><span th:text="${product.type}">Type</span></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+
+<form th:action="@{/users/order}" method="get">
+    <input type="submit" value="Place order"></form>
+<form th:action="@{/users/all}" method="get">
+    <input type="submit" value="Back"></form>
+</body>
+</html>

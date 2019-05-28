@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+    <style>
+table, th, td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+table,th,td{
+    padding : 5px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+<p>Welcome. Please search the products you want to order!</p>
+<table style="width:50%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Price</th>
+        <th>Type</th>
+    </tr>
+    <tbody>
+    <tr th:if="${products.empty}" >
+        <td colspan="2"> No products available</td>
+    </tr>
+    <tr th:each="product: ${products}">
+        <td><span th:text="${product.id}">Id</span></td>
+        <td><span th:text="${product.name}">Name</span></td>
+        <td><span th:text="${product.description}">Description</span></td>
+        <td><span th:text="${product.amount}">Amount</span></td>
+        <td><span th:text="${product.price}">Price</span></td>
+        <td><span th:text="${product.type}">Type</span></td>
+
+    </tr>
+    </tbody>
+</table>
+<p> Filter products  by type: </p>
+</body>
+<form th:action="@{/products/type/kitchen}" method="get">
+    <input type="submit" value="Show kitchen products"></form>
+<form th:action="@{/products/type/bedroom}" method="get">
+    <input type="submit" value="Show bedroom products"></form>
+<form th:action="@{/products/type/office}" method="get">
+    <input type="submit" value="Show office products"></form>
+<form th:action="@{/products/type/living-room}" method="get">
+    <input type="submit" value="Show living-room products"></form>
+<p>Filter products by price: </p>
+<form th:action="@{/products/type/price}" method="get">
+    <input type="submit" value="Show products after price"></form>
+<p>Filter products by name: </p>
+<form th:action="@{/products/type/name}" method="get">
+    <input type="submit" value="Show products after name"></form>
+<form th:action="@{/users/loginStaff}" method="get">
+    <input type="submit" value="Invoice Order"></form>
+<p> Before placing an order, please keep in mind the product id. Also, if you want to order more products that are available, your order will not be placed. Thank you!</p>
+<form th:action="@{/users/order}" method="get">
+    <input type="submit" value="Place order"></form>
+<form th:action="@{/logorreg}" method="get">
+    <input type="submit" value="Sign Out"></form>
+</body>
+</html>
