@@ -1,15 +1,15 @@
 package com.a3.bfd.controller;
 
 
-import com.a3.bfd.handlers.AddproductHandler;
-import com.a3.bfd.handlers.DeleteProductHandler;
-import com.a3.bfd.handlers.Request;
+import com.a3.bfd.decorator.Bedroom;
+import com.a3.bfd.handlers.*;
 import com.a3.bfd.mediator.Mediator;
 import com.a3.bfd.mediator.MediatorImpl;
 import com.a3.bfd.model.Product;
 import com.a3.bfd.readService.OrderServiceR;
 import com.a3.bfd.readService.ProductServiceR;
 import com.a3.bfd.writeService.ProductServiceW;
+import com.a3.bfd.writeService.StaffServiceW;
 import com.sun.org.apache.regexp.internal.RE;
 import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +36,21 @@ public class ProductControllerPost {
     private OrderServiceR orderServiceR;
 
     @Autowired
-    private ApplicationContext appl;
-
-    @Autowired
     private  AddproductHandler addproductHandler;
 
     @Autowired
     private DeleteProductHandler deleteProductHandler;
+    @Autowired
+    private KitchenDiscountHandler kitchenDiscountHandler;
+    @Autowired
+    private BedroomDiscountHandler bedroomDiscountHandler;
+    @Autowired
+    private LivingDiscountHandler livingDiscountHandler;
+    @Autowired
+    private OfficeDiscountHandler officeDiscountHandler;
 
-
+    @Autowired
+    private StaffServiceW staffServiceW;
 
 
     @PostMapping("/addProduct")
@@ -72,6 +78,47 @@ public class ProductControllerPost {
         Mediator mediator=new MediatorImpl();
         Request request=new DeleteProductHandler();
         deleteProductHandler.setProduct(product.get());
+        mediator.handle(request);
+        model.addAttribute("products", productServiceR.getAllProducts());
+        model.addAttribute("orders", orderServiceR.getAllOrders());
+        return "/staffPage";
+    }
+
+    @GetMapping(path = "/filter/kitchen")
+    public String kitchen(Model model){
+        Mediator mediator=new MediatorImpl();
+        Request request=new KitchenDiscountHandler();
+        kitchenDiscountHandler.handle(request.getType());
+        mediator.handle(request);
+        model.addAttribute("products", productServiceR.getAllProducts());
+        model.addAttribute("orders", orderServiceR.getAllOrders());
+        return "/staffPage";
+    }
+    @GetMapping(path="/filter/bedroom")
+    public String bedroom(Model model){
+        Mediator mediator=new MediatorImpl();
+        Request request=new BedroomDiscountHandler();
+        bedroomDiscountHandler.handle(request.getType());
+        mediator.handle(request);
+        model.addAttribute("products", productServiceR.getAllProducts());
+        model.addAttribute("orders", orderServiceR.getAllOrders());
+        return "/staffPage";
+    }
+    @GetMapping(path="/filter/livingroom")
+    public String livingroom(Model model){
+        Mediator mediator=new MediatorImpl();
+        Request request=new LivingDiscountHandler();
+        livingDiscountHandler.handle(request.getType());
+        mediator.handle(request);
+        model.addAttribute("products", productServiceR.getAllProducts());
+        model.addAttribute("orders", orderServiceR.getAllOrders());
+        return "/staffPage";
+    }
+    @GetMapping(path="/filter/office")
+    public String office(Model model){
+        Mediator mediator=new MediatorImpl();
+        Request request=new OfficeDiscountHandler();
+        officeDiscountHandler.handle(request.getType());
         mediator.handle(request);
         model.addAttribute("products", productServiceR.getAllProducts());
         model.addAttribute("orders", orderServiceR.getAllOrders());

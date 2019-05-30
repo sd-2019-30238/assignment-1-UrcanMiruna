@@ -63,6 +63,5 @@ public class StaffServiceWImpl implements StaffServiceW {
         for(Product p:products1){
             productServiceW.updateProduct(p);
         }
-        System.out.print("discount applied ");
     }
 }

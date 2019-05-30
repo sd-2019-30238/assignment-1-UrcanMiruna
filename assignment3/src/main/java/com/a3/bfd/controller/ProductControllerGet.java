@@ -26,37 +26,6 @@ public class ProductControllerGet {
     private OrderServiceR orderServiceR;
     @Autowired
     private StaffServiceR staffServiceR;
-    @Autowired
-    private StaffServiceW staffServiceW;
-    @GetMapping(path = "/filter/kitchen")
-    public String kitchen(Model model){
-        staffServiceW.appyDiscout("kitchen");
-        model.addAttribute("products", productServiceR.getAllProducts());
-        model.addAttribute("orders", orderServiceR.getAllOrders());
-        return "/staffPage";
-    }
-    @GetMapping(path="/filter/bedroom")
-    public String bedroom(Model model){
-        staffServiceW.appyDiscout("bedroom");
-        model.addAttribute("products", productServiceR.getAllProducts());
-        model.addAttribute("orders", orderServiceR.getAllOrders());
-        return "/staffPage";
-    }
-    @GetMapping(path="/filter/livingroom")
-    public String livingroom(Model model){
-        staffServiceW.appyDiscout("livingroom");
-        model.addAttribute("products", productServiceR.getAllProducts());
-        model.addAttribute("orders", orderServiceR.getAllOrders());
-        return "/staffPage";
-    }
-    @GetMapping(path="/filter/office")
-    public String office(Model model){
-        staffServiceW.appyDiscout("office");
-        model.addAttribute("products", productServiceR.getAllProducts());
-        model.addAttribute("orders", orderServiceR.getAllOrders());
-        return "/staffPage";
-    }
-
 
     @GetMapping(path="/type/kitchen")
     public String kitchenType(Model model){

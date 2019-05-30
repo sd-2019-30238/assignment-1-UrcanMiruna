@@ -13,7 +13,6 @@ public class Bedroom implements Discount {
         for(Product product:products){
             product.setPrice((float) (product.getPrice()-0.25*product.getPrice()));
         }
-        System.out.println("with 25 percent");
         return products;
     }
 }
