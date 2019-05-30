@@ -46,7 +46,7 @@ table,th,td{
         <td><span th:text="${product.amount}">Amount</span></td>
         <td><span th:text="${product.price}">Price</span></td>
         <td><span th:text="${product.type}">Type</span></td>
-        <td><form th:action="@{'/staffPage/delete/'+ ${product.id}}" method="post">
+        <td><form th:action="@{'/products/delete/'+ ${product.id}}" method="post">
             <input type="submit" value="Delete"></form></td>
 
     </tr>
@@ -95,7 +95,7 @@ table,th,td{
 <form th:action="@{/products/filter/office}" method="get">
     <input type="submit" value="Office discount"></form>
 <p></p>
-<form th:action="@{/staffPage/addProduct}" method="post">
+<form th:action="@{/products/addProduct}" method="post">
     <input type="submit" value="Add product"></form>
 <p></p>
 

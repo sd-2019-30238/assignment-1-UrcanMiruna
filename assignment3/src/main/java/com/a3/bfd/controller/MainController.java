@@ -59,4 +59,8 @@ public class MainController {
     public String inv(){
         return "/invoice";
     }
+    @GetMapping("/addProduct")
+    public String add(){
+        return "/addProduct";
+    }
 }

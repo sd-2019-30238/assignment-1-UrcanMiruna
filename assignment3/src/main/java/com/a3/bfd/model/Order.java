@@ -139,4 +139,17 @@ public class  Order implements Subject {
             observer.update(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", idProduct=" + idProduct +
+                ", state='" + state + '\'' +
+                ", amountOrdered=" + amountOrdered +
+                ", password='" + password + '\'' +
+                ", observers=" + observers +
+                '}';
+    }
 }

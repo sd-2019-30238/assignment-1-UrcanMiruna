@@ -21,13 +21,7 @@ public class StaffControllerGet {
     @Autowired
     private StaffServiceR staffServiceR;
     @Autowired
-    private StaffServiceW staffServiceW;
-    @Autowired
     private ProductServiceR productServiceR;
-    @Autowired
-    private ProductServiceW productServiceW;
-    @Autowired
-    private OrderServiceW orderServiceW;
     @Autowired
     private OrderServiceR orderServiceR;
 

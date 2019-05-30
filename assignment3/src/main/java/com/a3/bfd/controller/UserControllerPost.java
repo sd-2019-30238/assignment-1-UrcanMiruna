@@ -1,6 +1,9 @@
 package com.a3.bfd.controller;
 
 
+import com.a3.bfd.handlers.*;
+import com.a3.bfd.mediator.Mediator;
+import com.a3.bfd.mediator.MediatorImpl;
 import com.a3.bfd.model.StaffAccount;
 import com.a3.bfd.model.UserAccount;
 import com.a3.bfd.readService.OrderServiceR;
@@ -43,20 +46,36 @@ public class UserControllerPost {
     @Autowired
     private ProductServiceR productServiceR;
 
+    @Autowired
+    private AddUserHandler addUserHandler;
+    @Autowired
+    private AddStaffHandler addStaffHandler;
+    @Autowired
+    private AddOrderHandler addOrderHandler;
+
+
 
     @PostMapping("/register")
-    public String getData(ServletWebRequest request, @Valid @ModelAttribute("userAccount") UserAccount userAccount, BindingResult result) {
+    public String getData(ServletWebRequest request, @Valid @ModelAttribute("userAccount") UserAccount userAccount, BindingResult result,  Model model) {
         if (result.hasErrors()) {
             return "/logorreg";
         }
         if (userServiceR.findByUsername(userAccount.getUsername()) == null && staffServiceR.findByUsename(userAccount.getUsername()) == null) {
             if (request.getParameterValues("user") != null) {
-                userServiceW.addUser(userAccount);
+                Mediator mediator=new MediatorImpl();
+                Request request1=new AddUserHandler();
+                addUserHandler.setUser(userAccount);
+                mediator.handle(request1);
                 return "/hello";
             } else {
                 StaffAccount staffAccount = new StaffAccount(userAccount.getName(), userAccount.getAge(), userAccount.getAddress(), userAccount.getUsername(), userAccount.getPassword());
-                staffServiceW.addUser(staffAccount);
-                return "/staffPage/all";
+                Mediator mediator=new MediatorImpl();
+                Request request1=new AddStaffHandler();
+                addStaffHandler.setStaff(staffAccount);
+                mediator.handle(request1);
+                model.addAttribute("products", productServiceR.getAllProducts());
+                model.addAttribute("orders", orderServiceR.getAllOrders());
+                return "/staffPage";
             }
 
         }
@@ -67,7 +86,10 @@ public class UserControllerPost {
 
         UserAccount userAccount = userServiceR.findByUsername(cart.getUsername());
         if (cart != null && cart.getUsername().equals(userAccount.getUsername()) && cart.getPassword().equals(userAccount.getPassword())) {
-            orderServiceW.addOrder(cart);
+            Mediator mediator=new MediatorImpl();
+            Request request1=new AddOrderHandler();
+            addOrderHandler.setOrder(cart);
+            mediator.handle(request1);
             return "/order";
         }
         return "/error";

@@ -95,5 +95,9 @@ public class ProductControllerGet {
         model.addAttribute("products", products.stream().sorted(Comparator.comparing(Product::getName)).collect(Collectors.toList()));
         return "/furniture";
     }
+    @GetMapping(path = "/addProduct")
+    public String add(){
+        return "/addProduct";
+    }
 
 }

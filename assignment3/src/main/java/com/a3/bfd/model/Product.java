@@ -27,13 +27,15 @@ public class Product  {
     @Column(name = "amount")
     private Integer amount;
 
+    @NotNull
+    @Column(name = "price")
     private Float price;
 
     @NotNull
     @Column(name = "type")
     private String type;
 
-    public Product(@NotNull String name, @NotNull String description, @NotNull Integer amount, Float price, @NotNull String type) {
+    public Product(@NotNull String name, @NotNull String description, @NotNull Integer amount, @NotNull Float price, @NotNull String type) {
         this.name = name;
         this.description = description;
         this.amount = amount;

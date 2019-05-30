@@ -16,6 +16,7 @@ public class ProductServiceWImpl implements ProductServiceW {
 
     @Override
     public void addProduct(Product product) {
+        System.out.println("service: "+product.toString());
         productRepository.save(product);
     }
 
